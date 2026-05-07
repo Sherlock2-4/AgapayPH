@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("username", inputUsername);
             editor.putString("role", DataHolder.role);
             editor.putBoolean("isLoggedIn", true);
+            editor.apply();
 
 
         } else {
