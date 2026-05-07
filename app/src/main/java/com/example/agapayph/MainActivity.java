@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-
+        DatabaseHelper dh = new DatabaseHelper(this);
+        dh.getWritableDatabase();//checking if db is created
 
         sp = getSharedPreferences("MyPref", MODE_PRIVATE);
 

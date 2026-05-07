@@ -1,0 +1,246 @@
+package com.example.agapayph;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+public class DatabaseHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "AgapayPH.db";
+    private static final int DATABASE_VERSION = 1;
+
+    /*
+    * NAMING SCHEME:
+    * for Tables = TABLE_(NAME OF TABLE)
+    * for Columns = PK(if primary key FK if foreign)_(table name)_(column name)
+    * */
+
+    //=====================================================================
+    //USERS TABLE
+    public static final String TABLE_USERS = "users";
+    public static final String PK_USERS_USERNAME = "username";
+    public static final String USERS_PASSWORD = "password";
+    public static final String USERS_FULL_NAME = "full_name";
+    public static final String USERS_CONTACT_NUMBER = "contact_number";
+    public static final String USERS_ADDRESS = "address";
+    public static final String USERS_ROLE = "role";
+    //=====================================================================
+
+    //=====================================================================
+    //INCIDENTS TABLE
+    public static final String TABLE_INCIDENTS = "incidents";
+    public static final String PK_INCIDENTS_ID = "incident_id";
+    public static final String INCIDENTS_TITLE = "incident_title";
+    public static final String INCIDENTS_CATEGORY = "category";
+    public static final String INCIDENTS_DESCRIPTION = "description";
+    public static final String INCIDENTS_NO_OF_AFFECTED_INDIV = "num_of_affected_indiv";
+    public static final String INCIDENTS_BARANGAY = "barangay";
+    public static final String INCIDENTS_DATE_AND_TIME = "date_and_time";
+    public static final String INCIDENTS_SEVERITY_LEVEL = "severity_level";
+    public static final String INCIDENTS_PHOTO_PLACEHOLDER = "photo";
+    public static final String INCIDENTS_COORDINATE_LATITUDE = "coordinate_latitude";//first coordinate (x),z
+    public static final String INCIDENTS_COORDINATE_LONGITUDE = "coordinate_longitude";//second coordinate x,(z)
+    //=====================================================================
+
+    //=====================================================================
+    //EVACUATION CENTERS TABLE
+    public static final String TABLE_EVACUATION_CENTERS = "evacuation_centers";
+    public static final String PK_EVACUATION_CENTER_NAME = "evacuation_name";//ex. elementary school etc.
+    public static final String EVACUATION_CENTER_ADDRESS = "address";
+    public static final String EVACUATION_CENTER_CAPACITY = "capacity";
+    public static final String EVACUATION_CENTER_CURRENT_OCCUPANCY = "current_occupancy";
+    //=====================================================================
+
+    //=====================================================================
+    //RELIEF RECORDS TABLE
+    public static final String TABLE_RELIEF_RECORDS = "relief_records";
+    public static final String PK_RELIEF_RECORD_ID = "relief_id";
+    public static final String RELIEF_RECORD_BENEFICIARY_NAME = "beneficiary_name";
+    public static final String RELIEF_RECORD_BARANGAY = "barangay";
+    public static final String RELIEF_RECORD_RELIEF_TYPE = "relief_type";
+    public static final String RELIEF_RECORD_QUANTITY = "quantity";
+    public static final String RELIEF_RECORD_DISTRIBUTION_DATE = "distribution_date";
+    public static final String FK_RELIEF_RECORD_VOLUNTEER_ID = "volunteer_id";
+    //=====================================================================
+
+    //=====================================================================
+    //VOLUNTEERS TABLE
+    public static final String TABLE_VOLUNTEERS = "volunteers";
+    public static final String PK_VOLUNTEER_ID = "volunteer_id";
+    public static final String FK_VOLUNTEER_USERNAME = "username";
+    //=====================================================================
+
+    //=====================================================================
+    //ASSIGNMENTS TABLE
+    public static final String TABLE_ASSIGNMENTS = "assignments";
+    public static final String PK_ASSIGNMENT_ID = "assignment_id";
+    public static final String FK_ASSIGNMENT_VOLUNTEER_ID = "volunteer_id";//possible to update? possible need reassignment to other volunteer?
+    public static final String ASSIGNMENT_TITLE = "assignment_title";
+    public static final String ASSIGNMENT_COMPLETION_STATUS = "assignment_status"; //can be null? since volunteer can decline the assignment
+    public static final String ASSIGNMENT_IS_ACCEPTED = "isAccepted";//boolean if volunteer accept or no
+    //=====================================================================
+
+    //=====================================================================
+    //MISSING PERSONS TABLE
+    public static final String TABLE_MISSING_PERSONS = "missing_persons";
+    public static final String PK_MISSING_PERSON_ID = "missing_person_id";
+    public static final String MISSING_PERSON_NAME = "full_name";
+    public static final String MISSING_PERSON_AGE = "age";
+    public static final String MISSING_PERSON_DESCRIPTION = "description";
+    public static final String MISSING_PERSON_LAST_LOCATION = "last_location";
+    public static final String MISSING_PERSON_DATE_MISSING = "date_missing";
+    public static final String MISSING_PERSON_STATUS = "status";//if still missing or not
+    //=====================================================================
+
+    //=====================================================================
+    //NOTIFICATIONS TABLE
+    public static final String TABLE_NOTIFICATIONS = "notifications";
+    public static final String PK_NOTIFICATION_ID = "notification_id";
+    public static final String FK_NOTIFICATION_INCIDENT_ID = "incident_id";//can be null
+    public static final String FK_NOTIFICATION_MISSING_ID = "missing_id";//can be null
+    public static final String FK_NOTIFICATION_INVENTORY_ID = "inventory_id";//can be null
+    public static final String FK_NOTIFICATION_ASSIGNMENT_ID = "assignment_id";//can be null
+    public static final String NOTIFICATION_DESCRIPTION = "description";//message of notification
+    public static final String NOTIFICATION_IS_SHOWN = "isShown";//boolean -- remove or change if needed
+    //=====================================================================
+
+    //=====================================================================
+    //INVENTORY TABLE
+    public static final String TABLE_INVENTORY = "inventory";
+    public static final String PK_INVENTORY_ID = "inventory_id";
+    public static final String INVENTORY_ITEM_NAME = "item_name";
+    public static final String INVENTORY_QUANTITY = "quantity";
+    public static final String FK_INVENTORY_EVACUATION_CENTER_NAME = "evacuation_name";
+    //=====================================================================
+
+    //=====================================================================
+    //ACTIVITY LOGS TABLE
+    public static final String TABLE_ACTIVITY_LOGS = "activity_logs";
+    public static final String PK_ACTIVITY_LOG_ID = "activity_id";
+    public static final String FK_ACTIVITY_USERNAME = "username";//user who did the activity
+    public static final String ACTIVITY_LOG_DESCRIPTION = "description";
+    public static final String ACTIVITY_LOG_DATE_AND_TIME = "date_and_time";
+    //=====================================================================
+
+    SQLiteDatabase database;
+
+
+
+    public DatabaseHelper (Context context){
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String CREATE_USERS = "CREATE TABLE "+ TABLE_USERS + "(" +
+                PK_USERS_USERNAME + " TEXT PRIMARY KEY, " +
+                USERS_PASSWORD + " TEXT, " +
+                USERS_FULL_NAME + " TEXT UNIQUE, " + //your final call if unique is needed for full name and contact number
+                USERS_CONTACT_NUMBER + " TEXT UNIQUE, " + //for +63, 09 etc. to be possible --add validation pls to validate that only number is typed
+                USERS_ADDRESS + " TEXT, " +
+                USERS_ROLE + " TEXT" +
+                ")";
+
+        String CREATE_INCIDENTS = "CREATE TABLE "+ TABLE_INCIDENTS + "(" +
+                PK_INCIDENTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                INCIDENTS_TITLE + " TEXT, " +
+                INCIDENTS_CATEGORY + " TEXT, " +
+                INCIDENTS_DESCRIPTION + " TEXT, " +
+                INCIDENTS_NO_OF_AFFECTED_INDIV + " INTEGER, " +
+                INCIDENTS_BARANGAY + " TEXT, " +
+                INCIDENTS_DATE_AND_TIME + " TEXT, " + //no built-in date datatype
+                INCIDENTS_SEVERITY_LEVEL + " INTEGER, " +//idea is score based?? 0-25 low, 26-50 moderate, 51-75 high, 76-100 critical??? //lmk if need to change
+                INCIDENTS_PHOTO_PLACEHOLDER + " BLOB, " +
+                INCIDENTS_COORDINATE_LATITUDE + " REAL, " +//float data type
+                INCIDENTS_COORDINATE_LONGITUDE + " REAL" +//float data type
+                ")";
+
+        String CREATE_EVACUATION_CENTERS = "CREATE TABLE "+ TABLE_EVACUATION_CENTERS + "(" +
+                PK_EVACUATION_CENTER_NAME + " TEXT PRIMARY KEY, " +
+                EVACUATION_CENTER_CAPACITY + " INTEGER, " +
+                EVACUATION_CENTER_CURRENT_OCCUPANCY + " INTEGER, " +
+                EVACUATION_CENTER_ADDRESS + " TEXT" +
+                ")";
+
+        String CREATE_VOLUNTEERS = "CREATE TABLE "+ TABLE_VOLUNTEERS + "(" +
+                PK_VOLUNTEER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                FK_VOLUNTEER_USERNAME + " TEXT REFERENCES " + TABLE_USERS +
+                    "(" + PK_USERS_USERNAME + ")" +
+                ")";
+
+        String CREATE_RELIEF_RECORDS = "CREATE TABLE "+ TABLE_RELIEF_RECORDS + "(" +
+                PK_RELIEF_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                RELIEF_RECORD_BENEFICIARY_NAME + " TEXT, " +
+                RELIEF_RECORD_BARANGAY + " TEXT, " +
+                RELIEF_RECORD_RELIEF_TYPE + " TEXT, " +
+                RELIEF_RECORD_QUANTITY + " INTEGER, " +
+                RELIEF_RECORD_DISTRIBUTION_DATE + " TEXT, " +//no built-in date datatype
+                FK_RELIEF_RECORD_VOLUNTEER_ID + " TEXT REFERENCES " +
+                    TABLE_VOLUNTEERS + "(" + PK_VOLUNTEER_ID + ")" +
+                ")";
+
+        String CREATE_ASSIGNMENT = "CREATE TABLE "+ TABLE_ASSIGNMENTS + "(" +
+                PK_ASSIGNMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                FK_ASSIGNMENT_VOLUNTEER_ID + " INTEGER REFERENCES " + TABLE_VOLUNTEERS +
+                    "(" + PK_VOLUNTEER_ID + "), " +
+                ASSIGNMENT_TITLE + " TEXT, " +
+                ASSIGNMENT_COMPLETION_STATUS + " TEXT, " +
+                ASSIGNMENT_IS_ACCEPTED + " INTEGER" +//no built-in boolean 0=false 1=true
+                ")";
+
+        String CREATE_MISSING_PERSON = "CREATE TABLE "+ TABLE_MISSING_PERSONS + "(" +
+                PK_MISSING_PERSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                MISSING_PERSON_NAME + " TEXT, " + //should this one be unique? or no? since there is a possibility of being missing again?
+                MISSING_PERSON_AGE + " INTEGER, " +
+                MISSING_PERSON_DESCRIPTION + " TEXT, " +
+                MISSING_PERSON_LAST_LOCATION + " TEXT, " +
+                MISSING_PERSON_DATE_MISSING + " TEXT, " + //no built-in date datatype
+                MISSING_PERSON_STATUS + " TEXT" +
+                ")";
+
+        String CREATE_INVENTORY = "CREATE TABLE "+ TABLE_INVENTORY + "(" +
+                PK_INVENTORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                INVENTORY_ITEM_NAME + " TEXT, " +
+                INVENTORY_QUANTITY + " INTEGER, " +
+                FK_INVENTORY_EVACUATION_CENTER_NAME + " TEXT REFERENCES " +
+                    TABLE_EVACUATION_CENTERS +
+                "(" + PK_EVACUATION_CENTER_NAME + ")" +
+                ")";
+
+        String CREATE_NOTIFICATIONS = "CREATE TABLE "+ TABLE_NOTIFICATIONS + "(" +
+                PK_NOTIFICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                FK_NOTIFICATION_INCIDENT_ID + " INTEGER REFERENCES " +
+                    TABLE_INCIDENTS + "(" + PK_INCIDENTS_ID + "), " +
+                FK_NOTIFICATION_MISSING_ID + " INTEGER REFERENCES " +
+                    TABLE_MISSING_PERSONS + "(" + PK_MISSING_PERSON_ID + "), " +
+                FK_NOTIFICATION_INVENTORY_ID + " INTEGER REFERENCES " +
+                    TABLE_INVENTORY + "(" + PK_INVENTORY_ID + "), " +
+                FK_NOTIFICATION_ASSIGNMENT_ID + " INTEGER REFERENCES " +
+                    TABLE_ASSIGNMENTS + "(" + PK_ASSIGNMENT_ID + "), " +
+                NOTIFICATION_DESCRIPTION + " TEXT, " +
+                NOTIFICATION_IS_SHOWN + " INTEGER" +//no built-in boolean 0=false 1=true
+                ")";
+
+        String CREATE_ACTIVITY_LOG = "CREATE TABLE "+ TABLE_ACTIVITY_LOGS + "(" +
+                PK_ACTIVITY_LOG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                FK_ACTIVITY_USERNAME + " TEXT REFERENCES " +
+                    TABLE_USERS + "(" + PK_USERS_USERNAME + "), " +
+                ACTIVITY_LOG_DESCRIPTION + " TEXT, " +
+                ACTIVITY_LOG_DATE_AND_TIME + " TEXT" + //no built-in date datatype
+                ")";
+
+        db.execSQL(CREATE_USERS);
+        db.execSQL(CREATE_INCIDENTS);
+        db.execSQL(CREATE_EVACUATION_CENTERS);
+        db.execSQL(CREATE_VOLUNTEERS);
+        db.execSQL(CREATE_RELIEF_RECORDS);
+        db.execSQL(CREATE_ASSIGNMENT);
+        db.execSQL(CREATE_MISSING_PERSON);
+        db.execSQL(CREATE_INVENTORY);
+        db.execSQL(CREATE_NOTIFICATIONS);
+        db.execSQL(CREATE_ACTIVITY_LOG);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onCreate(db);
+    }
+}
