@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -14,6 +15,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Admin extends AppCompatActivity {
+
+    TextView tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,16 @@ public class Admin extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        tvName = findViewById(R.id.tvName);
+        tvName.setText(DataHolder.username);
+    }
+
+    public void toAddEvacuation(View view) {
+
+        Intent i = new Intent(this, AddEvaculation.class);
+        startActivity(i);
+
     }
 
     public void logoutClicked(View view) {

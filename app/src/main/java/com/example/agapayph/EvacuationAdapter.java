@@ -65,8 +65,8 @@ public class EvacuationAdapter extends BaseAdapter {
 
         ListEvacuationCenter item = data.get(i);
         vh.tvEvacName.setText(item.evaucation_name);
-        vh.tvCapacity.setText(item.capacity);
-        vh.tvOccupancy.setText(item.current_occupancy);
+        vh.tvCapacity.setText(item.capacity+"");
+        vh.tvOccupancy.setText(item.current_occupancy+"");
         vh.tvAddress.setText(item.address);
 
         return view;

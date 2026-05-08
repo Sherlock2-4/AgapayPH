@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +14,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.List;
+
 public class FindEvacuation extends AppCompatActivity {
 
     ListView lvEvacuation;
     EvacuationAdapter adapter;
+    List<ListEvacuationCenter> data;
 
 
     @Override
@@ -29,12 +33,16 @@ public class FindEvacuation extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        DatabaseHelper dh = new DatabaseHelper(this);
 
-//        lvEvacuation = findViewById(R.id.lvEvacuation);
-//        adapter = new EvacuationAdapter(this, );
-//
-//
-//        lvEvacuation.setAdapter(adapter);
+        data = dh.listEvacuationCenter();
+
+
+        lvEvacuation = findViewById(R.id.lvEvacuation);
+        adapter = new EvacuationAdapter(this, data);
+
+
+        lvEvacuation.setAdapter(adapter);
 
     }
 

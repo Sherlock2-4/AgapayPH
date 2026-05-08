@@ -485,6 +485,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.query(TABLE_EVACUATION_CENTERS, null, null,
                 null, null, null, null);
 
+        cursor.moveToFirst();
         do{
             ListEvacuationCenter lec = new ListEvacuationCenter(
                     cursor.getString(cursor.getColumnIndexOrThrow(PK_EVACUATION_CENTER_NAME)),

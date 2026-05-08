@@ -3,6 +3,7 @@ package com.example.agapayph;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
@@ -177,12 +178,13 @@ public class ReportIncident extends AppCompatActivity {
         CardView cvMissing = findViewById(R.id.cvMissing);
         CardView cvInfrastructure = findViewById(R.id.cvInfrastructure);
 
-        cvFlood.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvFire.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvEarthquake.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvMedical.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvMissing.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvInfrastructure.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
+
+        cvFlood.setCardBackgroundColor(Color.parseColor("#C7EEFF"));
+        cvFire.setCardBackgroundColor(Color.parseColor("#FFC7C7"));
+        cvEarthquake.setCardBackgroundColor(Color.parseColor("#FFE7A4"));
+        cvMedical.setCardBackgroundColor(Color.parseColor("#FFC3D8"));
+        cvMissing.setCardBackgroundColor(Color.parseColor("#FFCE97"));
+        cvInfrastructure.setCardBackgroundColor(Color.parseColor("#F8FFC0"));
 
         CardView selectedCard = (CardView)view;
         selectedCard.setCardBackgroundColor(getResources().getColor(R.color.green));
@@ -204,10 +206,10 @@ public class ReportIncident extends AppCompatActivity {
         Button btnHigh = findViewById(R.id.button5);
         Button btnCritical = findViewById(R.id.button6);
 
-        btnLow.setBackground(getResources().getDrawable(R.drawable.moderate_bg));
+        btnLow.setBackground(getResources().getDrawable(R.drawable.low_bg));
         btnModerate.setBackground(getResources().getDrawable(R.drawable.moderate_bg));
-        btnHigh.setBackground(getResources().getDrawable(R.drawable.moderate_bg));
-        btnCritical.setBackground(getResources().getDrawable(R.drawable.moderate_bg));
+        btnHigh.setBackground(getResources().getDrawable(R.drawable.high_bg));
+        btnCritical.setBackground(getResources().getDrawable(R.drawable.critical_bg));
 
         Button selectedButton = (Button)view;
         selectedButton.setBackground(getResources().getDrawable(R.drawable.green_bg));
@@ -245,10 +247,10 @@ public class ReportIncident extends AppCompatActivity {
         Button btnHigh = findViewById(R.id.button5);
         Button btnCritical = findViewById(R.id.button6);
 
-        btnLow.setBackground(getResources().getDrawable(R.drawable.moderate_bg));
+        btnLow.setBackground(getResources().getDrawable(R.drawable.low_bg));
         btnModerate.setBackground(getResources().getDrawable(R.drawable.moderate_bg));
-        btnHigh.setBackground(getResources().getDrawable(R.drawable.moderate_bg));
-        btnCritical.setBackground(getResources().getDrawable(R.drawable.moderate_bg));
+        btnHigh.setBackground(getResources().getDrawable(R.drawable.high_bg));
+        btnCritical.setBackground(getResources().getDrawable(R.drawable.critical_bg));
 
         CardView cvFlood = findViewById(R.id.cvFlood);
         CardView cvFire = findViewById(R.id.cvFire);
@@ -257,12 +259,12 @@ public class ReportIncident extends AppCompatActivity {
         CardView cvMissing = findViewById(R.id.cvMissing);
         CardView cvInfrastructure = findViewById(R.id.cvInfrastructure);
 
-        cvFlood.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvFire.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvEarthquake.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvMedical.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvMissing.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvInfrastructure.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
+        cvFlood.setCardBackgroundColor(Color.parseColor("#C7EEFF"));
+        cvFire.setCardBackgroundColor(Color.parseColor("#FFC7C7"));
+        cvEarthquake.setCardBackgroundColor(Color.parseColor("#FFE7A4"));
+        cvMedical.setCardBackgroundColor(Color.parseColor("#FFC3D8"));
+        cvMissing.setCardBackgroundColor(Color.parseColor("#FFCE97"));
+        cvInfrastructure.setCardBackgroundColor(Color.parseColor("#F8FFC0"));
 
         ((TextView)findViewById(R.id.etTitle)).setText("");
         ((TextView)findViewById(R.id.editTextText28)).setText("");

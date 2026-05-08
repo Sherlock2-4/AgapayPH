@@ -19,7 +19,8 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/back" />
+            app:srcCompat="@drawable/back"
+            android:onClick="back"/>
 
         <TextView
             android:id="@+id/textView16"
@@ -56,6 +57,7 @@
                 android:text="Center Name" />
 
             <EditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -82,6 +84,7 @@
                 android:text="Barangay" />
 
             <EditText
+                android:id="@+id/etBarangay"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -108,6 +111,7 @@
                 android:text="Total capacity" />
 
             <EditText
+                android:id="@+id/etCapacity"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -134,6 +138,7 @@
                 android:text="Current occupancy" />
 
             <EditText
+                android:id="@+id/etOccupancy"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -160,6 +165,7 @@
                 android:text="Food packs available" />
 
             <EditText
+                android:id="@+id/etFood"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -186,6 +192,7 @@
                 android:text="Water (liters)" />
 
             <EditText
+                android:id="@+id/etWater"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -211,6 +218,7 @@
                 android:text="Medicine kits" />
 
             <EditText
+                android:id="@+id/etKits"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -238,7 +246,8 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_bg"
                 android:text="Add Center"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:onClick="addCenter"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
