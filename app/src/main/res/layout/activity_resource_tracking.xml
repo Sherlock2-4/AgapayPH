@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
-    android:background="#C70303"
     android:layout_width="match_parent"
+    android:background="#C70303"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".MissingReport">
+    tools:context=".ResourceTracking">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -19,8 +19,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/back"
-            android:onClick="back"/>
+            app:srcCompat="@drawable/back" />
 
         <TextView
             android:id="@+id/textView16"
@@ -30,9 +29,9 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="serif"
-            android:text="Report Missing"
+            android:text="Log relief distribution"
             android:textColor="@color/white"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -45,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
             <TextView
                 android:id="@+id/textView20"
                 android:layout_marginLeft="20dp"
@@ -54,48 +54,21 @@
                 android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Full Name" />
+                android:text="Beneficiary name" />
 
             <EditText
-                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="13dp"
-                android:layout_marginBottom="10dp"
-                android:padding="15dp"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/input_border"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Missing person full name"
-                android:inputType="text"
-                />
-            <TextView
-                android:id="@+id/textView230"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Age" />
-
-            <EditText
-                android:id="@+id/etAge"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
                 android:padding="15dp"
-                android:textSize="13dp"
                 android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Age"
-                android:inputType="number"
+                android:hint="Full Name"
+                android:inputType="text"
                 />
             <TextView
                 android:id="@+id/textView203"
@@ -106,25 +79,24 @@
                 android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Last Know Location" />
+                android:text="Barangay" />
 
             <EditText
-                android:id="@+id/etLocation"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:padding="15dp"
                 android:textSize="13dp"
+                android:layout_marginBottom="5dp"
+                android:padding="15dp"
                 android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="e.g. Brgy Sta. Rita market"
+                android:hint="Brgy. Mabolo"
                 android:inputType="text"
                 />
             <TextView
-                android:id="@+id/textView2033"
+                android:id="@+id/textView205"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -132,21 +104,72 @@
                 android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description" />
+                android:text="Relief type" />
 
             <EditText
-                android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:padding="15dp"
                 android:textSize="13dp"
+                android:layout_marginBottom="5dp"
+                android:padding="15dp"
                 android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Physical description, clothing, etc."
+                android:hint="Food pack"
+                android:inputType="text"
+                />
+
+            <TextView
+                android:id="@+id/textView209"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quantity" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="13dp"
+                android:layout_marginBottom="5dp"
+                android:padding="15dp"
+                android:fontFamily="sans-serif-light"
+                android:background="@drawable/input_border"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="0"
+                android:inputType="number"
+                />
+
+            <TextView
+                android:id="@+id/textView207"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Volunteer assigned" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="13dp"
+                android:layout_marginBottom="5dp"
+                android:padding="15dp"
+                android:fontFamily="sans-serif-light"
+                android:background="@drawable/input_border"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Volunteer name"
                 android:inputType="text"
                 />
 
@@ -162,9 +185,8 @@
                 android:backgroundTint="#B62727"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_bg"
-                android:text="Submit Report"
-                android:textColor="@color/white"
-                android:onClick="submitMissing"/>
+                android:text="Log Distribution"
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

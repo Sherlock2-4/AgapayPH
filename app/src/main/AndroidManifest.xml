@@ -12,6 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgapayPH">
         <activity
+            android:name=".Volunteer"
+            android:exported="false" />
+        <activity
+            android:name=".ResourceTracking"
+            android:exported="false" />
+        <activity
+            android:name=".AddEvaculation"
+            android:exported="false" />
+        <activity
+            android:name=".Admin"
+            android:exported="false" />
+        <activity
             android:name=".FindEvacuation"
             android:exported="false" />
         <activity

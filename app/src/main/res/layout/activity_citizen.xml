@@ -48,8 +48,6 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/logout"
             android:onClick="logoutClicked"/>
-
-
     </LinearLayout>
 
     <ScrollView
