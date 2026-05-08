@@ -42,6 +42,13 @@ public class Citizen extends AppCompatActivity {
 
     }
 
+    public void toMissingPerson(View view) {
+
+        Intent i = new Intent(this, MissingReport.class);
+        startActivity(i);
+
+    }
+
     public void logoutClicked(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Citizen.this);
