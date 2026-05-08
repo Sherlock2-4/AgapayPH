@@ -18,7 +18,8 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/back" />
+            app:srcCompat="@drawable/back"
+            android:onClick="back"/>
 
         <TextView
             android:id="@+id/textView16"
@@ -45,6 +46,7 @@
             android:orientation="vertical" >
 
             <ListView
+                android:id="@+id/lvEvacuation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

@@ -339,6 +339,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = database.insert(TABLE_EVACUATION_CENTERS, null, cv);
         return result > 0;
     }
+
+
     public boolean addReliefRecords(String beneficiary_name, String barangay, String relief_type,
                                     int quantity, String distribution_date, int volunteer_id){
         database = getWritableDatabase();

@@ -92,6 +92,12 @@ public class SignUp extends AppCompatActivity {
                     Intent i = new Intent(this, Citizen.class);
                     startActivity(i);
 
+                } else if (DataHolder.role.equals("Administrator")) {
+
+                    finish();
+                    Intent i = new Intent(this, Admin.class);
+                    startActivity(i);
+
                 }
 
             } else {

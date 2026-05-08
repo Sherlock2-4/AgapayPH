@@ -167,6 +167,7 @@
                     app:cardBackgroundColor="#DBEFFF"
                     android:layout_height="150dp"
                     android:layout_marginRight="10dp"
+                    android:onClick="toEvacuation"
                     >
 
                     <LinearLayout
