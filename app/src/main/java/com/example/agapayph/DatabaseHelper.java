@@ -5,10 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.widget.ImageView;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AgapayPH.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     /*
     * NAMING SCHEME:
@@ -149,7 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 INCIDENTS_NO_OF_AFFECTED_INDIV + " INTEGER, " +
                 INCIDENTS_BARANGAY + " TEXT, " +
                 INCIDENTS_DATE_AND_TIME + " TEXT, " + //no built-in date datatype
-                INCIDENTS_SEVERITY_LEVEL + " INTEGER, " +//idea is score based?? 0-25 low, 26-50 moderate, 51-75 high, 76-100 critical??? //lmk if need to change
+                INCIDENTS_SEVERITY_LEVEL + " TEXT, " +//low moderate high critical
                 INCIDENTS_PHOTO_PLACEHOLDER + " BLOB, " +
                 INCIDENTS_COORDINATE_LATITUDE + " REAL, " +//float data type
                 INCIDENTS_COORDINATE_LONGITUDE + " REAL" +//float data type
@@ -243,25 +250,79 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ACTIVITY_LOGS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NOTIFICATIONS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_INVENTORY);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_MISSING_PERSONS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ASSIGNMENTS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_RELIEF_RECORDS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_VOLUNTEERS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_EVACUATION_CENTERS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_INCIDENTS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_USERS);
         onCreate(db);
     }
 
-    public Boolean addUser(String username, String password, String full_name, String contact_number, String address, String role) {
+    public boolean addUser(String username, String password, String full_name,
+                           String contact_number, String address, String role) {
 
         database = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("username", username);
-        values.put("password", password);
-        values.put("full_name", full_name);
-        values.put("contact_number", contact_number);
-        values.put("address", address);
-        values.put("role", role);
+        ContentValues cv = new ContentValues();
+        cv.put(PK_USERS_USERNAME, username);
+        cv.put(USERS_PASSWORD, password);
+        cv.put(USERS_FULL_NAME, full_name);
+        cv.put(USERS_CONTACT_NUMBER, contact_number);
+        cv.put(USERS_ADDRESS, address);
+        cv.put(USERS_ROLE, role);
 
-        long result = database.insert(TABLE_USERS, null, values);
+        long result = database.insert(TABLE_USERS, null, cv);
 
         return result > 0;
-
     }
+
+    public boolean addIncident(String title, String category, String description, int affectedCount,
+                               String barangay, String date_and_time, String severity_level,
+                               ImageView photo, double coordinate1, double coordinate2){
+
+        BitmapDrawable drawable = (BitmapDrawable) photo.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(INCIDENTS_TITLE, title);
+        cv.put(INCIDENTS_CATEGORY, category);
+        cv.put(INCIDENTS_DESCRIPTION, description);
+        cv.put(INCIDENTS_NO_OF_AFFECTED_INDIV, affectedCount);
+        cv.put(INCIDENTS_BARANGAY, barangay);
+        cv.put(INCIDENTS_DATE_AND_TIME, date_and_time);
+        cv.put(INCIDENTS_SEVERITY_LEVEL, severity_level);
+        cv.put(INCIDENTS_PHOTO_PLACEHOLDER, getBitmapByte(bitmap));
+        cv.put(INCIDENTS_COORDINATE_LATITUDE, coordinate1);
+        cv.put(INCIDENTS_COORDINATE_LONGITUDE, coordinate2);
+
+        long result = database.insert(TABLE_INCIDENTS, null, cv);
+        return result > 0;
+    }
+    public boolean addIncident(String title, String category, String description, int affectedCount,
+                               String barangay, String date_and_time, String severity_level,
+                               double coordinate1, double coordinate2){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(INCIDENTS_TITLE, title);
+        cv.put(INCIDENTS_CATEGORY, category);
+        cv.put(INCIDENTS_DESCRIPTION, description);
+        cv.put(INCIDENTS_NO_OF_AFFECTED_INDIV, affectedCount);
+        cv.put(INCIDENTS_BARANGAY, barangay);
+        cv.put(INCIDENTS_DATE_AND_TIME, date_and_time);
+        cv.put(INCIDENTS_SEVERITY_LEVEL, severity_level);
+        cv.put(INCIDENTS_PHOTO_PLACEHOLDER, "null");
+        cv.put(INCIDENTS_COORDINATE_LATITUDE, coordinate1);
+        cv.put(INCIDENTS_COORDINATE_LONGITUDE, coordinate2);
+
+        long result = database.insert(TABLE_INCIDENTS, null, cv);
+        return result > 0;
+    }
+
 
     public Boolean checkUserLogin(String username, String password) {
 
@@ -290,5 +351,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         }
         return false;
+    }
+
+    public byte[] getBitmapByte(Bitmap bitmap){//convert image
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        return outputStream.toByteArray();
+    }
+
+    public Bitmap getImage(byte[] imageByte){
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
+        return bitmap;
     }
 }
