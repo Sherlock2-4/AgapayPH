@@ -13,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
 public class ReportIncident extends AppCompatActivity {
 
     String category;
@@ -21,6 +22,11 @@ public class ReportIncident extends AppCompatActivity {
     String barangay;
     int individual;
     String placeHolder;
+    String description;
+    String priority;
+    int priorityScore;
+
+    DatabaseHelper dh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,11 @@ public class ReportIncident extends AppCompatActivity {
         barangay = "";
         individual = 0;
         placeHolder = "";
+        description = "";
+        priority = "";
+        priorityScore = 0;
+
+        dh = new DatabaseHelper(this);
     }
 
 
@@ -46,16 +57,78 @@ public class ReportIncident extends AppCompatActivity {
 
         title = ((TextView)findViewById(R.id.etTitle)).getText().toString().trim();
         barangay = ((TextView)findViewById(R.id.editTextText28)).getText().toString().trim();
+        description = ((TextView)findViewById(R.id.editTextText260)).getText().toString().trim();
 
         placeHolder = ((TextView)findViewById(R.id.editTextNumber)).getText().toString().trim();
         if (!placeHolder.isEmpty()) {
             individual = Integer.parseInt(placeHolder);
         }
 
-        Toast.makeText(this, title + " " + barangay + " " + individual, Toast.LENGTH_SHORT).show();
+        calculatePriority();
+
+//        Calendar c = Calendar.getInstance();
+//        Toast.makeText(this, c.getTime()+"", Toast.LENGTH_SHORT).show();
+
+
+        //long result = dh.addIncident(title, category, description, individual, barangay, )
 
     }
 
+    public void calculatePriority() {
+
+        priorityScore = 0;
+
+        switch (severity) {
+            case "Low":
+                priorityScore += 10;
+                break;
+            case "Moderate":
+                priorityScore += 20;
+                break;
+            case "High":
+                priorityScore += 30;
+                break;
+            case "Critical":
+                priorityScore += 50;
+                break;
+        }
+
+        switch (category) {
+            case "Flood":
+                priorityScore += 15;
+                break;
+            case "Medical":
+                priorityScore += 30;
+                break;
+            case "Missing":
+                priorityScore += 20;
+                break;
+            case "Earthquake":
+                priorityScore += 25;
+                break;
+            case "Fire":
+                priorityScore += 30;
+                break;
+            case "Infrastructure":
+                priorityScore += 20;
+                break;
+        }
+
+        if (individual >= 20) {
+            priorityScore += 20;
+        }
+
+        if (priorityScore >= 80) {
+            priority = "Critical";
+        } else if (priorityScore >= 60) {
+            priority = "High";
+        } else if (priorityScore >= 40) {
+            priority = "Medium";
+        } else {
+            priority = "Low";
+        }
+
+    }
 
     public void categorySelect(View view) {
 
@@ -83,7 +156,6 @@ public class ReportIncident extends AppCompatActivity {
         if (cvMissing == selectedCard) { category = "Missing"; }
         if (cvInfrastructure == selectedCard) { category = "Infrastructure"; }
 
-        Toast.makeText(this, category, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -107,7 +179,6 @@ public class ReportIncident extends AppCompatActivity {
         if (btnHigh == selectedButton) { severity = "High"; }
         if (btnCritical == selectedButton) { severity = "Critical"; }
 
-        Toast.makeText(this, severity, Toast.LENGTH_SHORT).show();
 
     }
 
