@@ -50,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
                     Intent i = new Intent(this, Citizen.class);
                     startActivity(i);
 
+                }else if (DataHolder.role.equals("Administrator")) {
+
+                    finish();
+                    Intent i = new Intent(this, Admin.class);
+                    startActivity(i);
+
                 }
             }
 
@@ -87,8 +93,19 @@ public class MainActivity extends AppCompatActivity {
 
             DataHolder.username = inputUsername;
 
-            Intent i = new Intent(this, Citizen.class);
-            startActivity(i);
+            if (DataHolder.role.equals("Citizen")) {
+
+
+                Intent i = new Intent(this, Citizen.class);
+                startActivity(i);
+
+            }else if (DataHolder.role.equals("Administrator")) {
+
+                finish();
+                Intent i = new Intent(this, Admin.class);
+                startActivity(i);
+
+            }
 
         } else {
 

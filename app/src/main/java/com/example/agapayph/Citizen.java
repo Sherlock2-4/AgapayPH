@@ -49,6 +49,13 @@ public class Citizen extends AppCompatActivity {
 
     }
 
+    public void toEvacuation(View view) {
+
+        Intent i = new Intent(this, FindEvacuation.class);
+        startActivity(i);
+
+    }
+
     public void logoutClicked(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Citizen.this);
@@ -65,6 +72,8 @@ public class Citizen extends AppCompatActivity {
                 editor.apply();
 
                 finish();
+                Intent j = new Intent(Citizen.this, MainActivity.class);
+                startActivity(j);
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
