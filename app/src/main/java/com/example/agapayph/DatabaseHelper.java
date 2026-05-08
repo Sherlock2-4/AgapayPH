@@ -374,14 +374,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = database.insert(TABLE_ASSIGNMENTS, null, cv);
         return result > 0;
     }
-    public boolean addMisingPerson(String full_name, int age, String last_location,
-                                   String description, String status){
+    public boolean addMisingPerson(String full_name, int age, String description, String last_location,
+                                   String date_missing, String status){
         database = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MISSING_PERSON_NAME, full_name);
         cv.put(MISSING_PERSON_AGE, age);
-        cv.put(MISSING_PERSON_LAST_LOCATION, last_location);
         cv.put(MISSING_PERSON_DESCRIPTION, description);
+        cv.put(MISSING_PERSON_LAST_LOCATION, last_location);
+        cv.put(MISSING_PERSON_DATE_MISSING, date_missing);
         cv.put(MISSING_PERSON_STATUS, status);
 
         long result = database.insert(TABLE_MISSING_PERSONS, null, cv);

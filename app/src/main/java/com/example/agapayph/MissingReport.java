@@ -15,11 +15,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 public class MissingReport extends AppCompatActivity {
 
     EditText etName, etAge, etLocation, etDescription;
     String name, location, description;
     int age;
+    DatabaseHelper dh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class MissingReport extends AppCompatActivity {
             return insets;
         });
 
+        dh = new DatabaseHelper(this);
         name = "";
         location = "";
         age = 0;
@@ -53,7 +58,9 @@ public class MissingReport extends AppCompatActivity {
         location = etLocation.getText().toString().trim();
         description = etDescription.getText().toString().trim();
 
-        Boolean result = true;
+        Calendar c = Calendar.getInstance(Locale.getDefault());
+
+        boolean result = dh.addMisingPerson(name, age, description, location, c.getTime()+"", "Not Found");
 
         if (result) {
 

@@ -19,6 +19,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Locale;
+
 
 public class ReportIncident extends AppCompatActivity {
 
@@ -74,7 +76,7 @@ public class ReportIncident extends AppCompatActivity {
 
         calculatePriority();
 
-        Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance(Locale.getDefault());
 
 
         Boolean result = dh.addIncident(title, category, description, individual, barangay, c.getTime()+"", severity, priority, 0, 0);
