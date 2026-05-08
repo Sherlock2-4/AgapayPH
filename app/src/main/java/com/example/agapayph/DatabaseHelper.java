@@ -319,7 +319,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(INCIDENTS_BARANGAY, barangay);
         cv.put(INCIDENTS_DATE_AND_TIME, date_and_time);
         cv.put(INCIDENTS_SEVERITY_LEVEL, severity_level);
-        cv.put(INCIDENTS_PHOTO_PLACEHOLDER, "null");
+        cv.putNull(INCIDENTS_PHOTO_PLACEHOLDER);
         cv.put(INCIDENTS_PRIORITY_CATEGORY, priority);
         cv.put(INCIDENTS_COORDINATE_LATITUDE, coordinate1);
         cv.put(INCIDENTS_COORDINATE_LONGITUDE, coordinate2);
@@ -405,22 +405,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         if(incident_id == 0){
-            cv.put(FK_NOTIFICATION_INCIDENT_ID, "null");
+            cv.putNull(FK_NOTIFICATION_INCIDENT_ID);
         }else {
             cv.put(FK_NOTIFICATION_INCIDENT_ID, incident_id);
         }
         if(missing_id == 0){
-            cv.put(FK_NOTIFICATION_MISSING_ID, "null");
+            cv.putNull(FK_NOTIFICATION_MISSING_ID);
         }else {
             cv.put(FK_NOTIFICATION_MISSING_ID, incident_id);
         }
         if(inventory_id == 0){
-            cv.put(FK_NOTIFICATION_INVENTORY_ID, "null");
+            cv.putNull(FK_NOTIFICATION_INVENTORY_ID);
         }else {
             cv.put(FK_NOTIFICATION_INVENTORY_ID, inventory_id);
         }
         if(assignment_id == 0){
-            cv.put(FK_NOTIFICATION_ASSIGNMENT_ID, "null");
+            cv.putNull(FK_NOTIFICATION_ASSIGNMENT_ID);
         }else {
             cv.put(FK_NOTIFICATION_ASSIGNMENT_ID, assignment_id);
         }
