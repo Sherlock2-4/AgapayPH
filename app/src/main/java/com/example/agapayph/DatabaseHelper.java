@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AgapayPH.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     /*
     * NAMING SCHEME:
@@ -467,6 +467,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         }
     }
+    public boolean updateEvacuationFoodPacks(int foodPacks, String evacuationName){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(EVACUATION_CENTER_FOOD_PACKS, foodPacks);
+
+        long result = database.update(TABLE_EVACUATION_CENTERS, cv,
+                PK_EVACUATION_CENTER_NAME + " = ?", new String[]{evacuationName});
+        return result > 0;
+    }
+    public boolean updateEvacuationWater(int water, String evacuationName){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(EVACUATION_CENTER_WATER, water);
+
+        long result = database.update(TABLE_EVACUATION_CENTERS, cv,
+                PK_EVACUATION_CENTER_NAME + " = ?", new String[]{evacuationName});
+        return result > 0;
+    }
+    public boolean updateEvacuationMedicineKit(int medicineKit, String evacuationName){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(EVACUATION_CENTER_MEDICINE_KIT, medicineKit);
+
+        long result = database.update(TABLE_EVACUATION_CENTERS, cv,
+                PK_EVACUATION_CENTER_NAME + " = ?", new String[]{evacuationName});
+        return result > 0;
+    }
     public boolean updateInventoryItemQuantity(int quantity, int inventory_id){
         database = getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -477,7 +504,147 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return result > 0;
     }
+    public boolean updateAssignmentVolunteer(int volunteer_id, int assignment_id){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FK_ASSIGNMENT_VOLUNTEER_ID, volunteer_id);
 
+        long result = database.update(TABLE_ASSIGNMENTS, cv, PK_ASSIGNMENT_ID + " = ?",
+                new String[]{assignment_id+""});
+        return result > 0;
+    }
+    public boolean unresolveIncident(int incident_id){
+        //USE TO UNRESOLVE AN INCIDENT
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(INCIDENTS_IS_RESOLVED, 0);
+        long result = database.update(TABLE_INCIDENTS, cv, PK_INCIDENTS_ID + " = ?",
+                new String[]{incident_id+""});
+        return result > 0;
+    }
+    public boolean unarchiveIncident(int incident_id){
+        //USE TO UNARCHIVE AN INCIDENT
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(INCIDENTS_IS_ARCHIVED, 0);
+        long result = database.update(TABLE_INCIDENTS, cv, PK_INCIDENTS_ID + " = ?",
+                new String[]{incident_id+""});
+        return result > 0;
+    }
+    public boolean resolveIncident(int incident_id){
+        //USE TO RESOLVE AN INCIDENT
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(INCIDENTS_IS_RESOLVED, 1);
+        long result = database.update(TABLE_INCIDENTS, cv, PK_INCIDENTS_ID + " = ?",
+                new String[]{incident_id+""});
+        return result > 0;
+    }
+    public boolean archiveIncident(int incident_id){
+        //USE TO ARCHIVE AN INCIDENT
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(INCIDENTS_IS_ARCHIVED, 1);
+        long result = database.update(TABLE_INCIDENTS, cv, PK_INCIDENTS_ID + " = ?",
+                new String[]{incident_id+""});
+        return result > 0;
+    }
+    public boolean deleteIncident(int incident_id){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(PK_INCIDENTS_ID, incident_id);
+        long result = database.delete(TABLE_INCIDENTS, PK_INCIDENTS_ID + " = ?",
+                new String[]{incident_id+""});
+        return result > 0;
+    }
+    public String getIncidentId(String incidentTitle){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_INCIDENTS, new String[]{ PK_INCIDENTS_ID },
+                INCIDENTS_TITLE + " = ?", new String[]{ incidentTitle },
+                null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndexOrThrow(PK_INCIDENTS_ID));
+    }
+    public String getIncidentId(String incidentTitle, String date_and_time){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_INCIDENTS, new String[]{ PK_INCIDENTS_ID },
+                INCIDENTS_TITLE + " = ? AND "+ INCIDENTS_DATE_AND_TIME + " = ?",
+                new String[]{ incidentTitle, date_and_time },
+                null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndexOrThrow(PK_INCIDENTS_ID));
+    }
+    public String getReliefId(String beneficiaryName, String reliefType, String distributionDate){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_RELIEF_RECORDS, new String[]{ PK_RELIEF_RECORD_ID },
+                RELIEF_RECORD_BENEFICIARY_NAME + " = ? AND " +
+                        RELIEF_RECORD_RELIEF_TYPE + " = ? AND "+
+                        RELIEF_RECORD_DISTRIBUTION_DATE + " = ?",
+                new String[]{ beneficiaryName, reliefType, distributionDate },
+                null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndexOrThrow(PK_RELIEF_RECORD_ID));
+    }
+    public String getVolunteerId(String username){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_VOLUNTEERS, new String[]{ PK_VOLUNTEER_ID },
+                FK_VOLUNTEER_USERNAME + " = ?", new String[]{ username },
+                null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndexOrThrow(PK_VOLUNTEER_ID));
+    }
+    public String getAssignmentId(String assignment){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_ASSIGNMENTS, new String[]{ PK_ASSIGNMENT_ID },
+                ASSIGNMENT_TITLE + " = ?", new String[]{ assignment },
+                null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndexOrThrow(PK_ASSIGNMENT_ID));
+    }
+    public String getMissingId(String fullName){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_MISSING_PERSONS, new String[]{ PK_MISSING_PERSON_ID },
+                MISSING_PERSON_NAME + " = ?", new String[]{ fullName },
+                null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndexOrThrow(PK_MISSING_PERSON_ID));
+    }
+    public String getNotificationId(String description){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_NOTIFICATIONS, new String[]{ PK_NOTIFICATION_ID },
+                NOTIFICATION_DESCRIPTION + " = ?", new String[]{ description },
+                null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndexOrThrow(PK_NOTIFICATION_ID));
+    }
+    public String getInventoryId(String itemName, String evacuationCenter){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_INVENTORY, new String[]{ PK_INVENTORY_ID },
+                INVENTORY_ITEM_NAME + " = ? AND "+
+                        FK_INVENTORY_EVACUATION_CENTER_NAME + " = ?",
+                new String[]{ itemName, evacuationCenter },
+                null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndexOrThrow(PK_INVENTORY_ID));
+    }
+    public String getActivityId(String username, String activity, String date_and_time){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(TABLE_ACTIVITY_LOGS, new String[]{ PK_ACTIVITY_LOG_ID },
+                FK_ACTIVITY_USERNAME + " = ? AND " +
+                        ACTIVITY_LOG_DESCRIPTION + " = ? AND " +
+                        ACTIVITY_LOG_DATE_AND_TIME + " = ?",
+                new String[]{ username, activity, date_and_time },
+                null, null, null);
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndexOrThrow(PK_INCIDENTS_ID));
+    }
+
+    public Cursor search(String tableName, String toSearch, String column){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(tableName, new String[]{column}, column + " = ?",
+                new String[]{toSearch}, null, null, null);
+        return cursor;
+    }
     public ArrayList<ListEvacuationCenter> listEvacuationCenter () {
         ArrayList<ListEvacuationCenter> evacuationData = new ArrayList<ListEvacuationCenter>();
         database = getReadableDatabase();
@@ -486,7 +653,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null, null, null, null);
 
         cursor.moveToFirst();
-        do{
+        cursor.moveToFirst();
+        while(cursor.moveToNext()){
             ListEvacuationCenter lec = new ListEvacuationCenter(
                     cursor.getString(cursor.getColumnIndexOrThrow(PK_EVACUATION_CENTER_NAME)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(EVACUATION_CENTER_CAPACITY)),
@@ -497,7 +665,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cursor.getInt(cursor.getColumnIndexOrThrow(EVACUATION_CENTER_MEDICINE_KIT))
             );
             evacuationData.add(lec);
-        }while(cursor.moveToNext());
+        }
         return evacuationData;
     }
     public Boolean checkUserLogin(String username, String password) {
