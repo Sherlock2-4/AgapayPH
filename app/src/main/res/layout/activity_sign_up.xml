@@ -8,6 +8,13 @@
     android:layout_height="match_parent"
     tools:context=".SignUp">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/back" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,6 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
+
 
             <ImageView
                 android:id="@+id/imageView"
@@ -182,7 +191,9 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvAdmin"
                     android:layout_width="150dp"
-
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="#F2F2F2"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
                     android:onClick="roleSelect">
@@ -216,6 +227,9 @@
                     android:id="@+id/cvResponder"
                     android:layout_width="150dp"
                     android:layout_height="80dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="#F2F2F2"
                     android:layout_marginLeft="10dp"
                     android:onClick="roleSelect">
 
@@ -255,6 +269,9 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvVolunteer"
                     android:layout_width="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="#F2F2F2"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
                     android:onClick="roleSelect">
@@ -288,6 +305,9 @@
                     android:id="@+id/cvCitizen"
                     android:layout_width="150dp"
                     android:layout_height="80dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="#F2F2F2"
                     android:layout_marginLeft="10dp"
                     android:onClick="roleSelect">
 
@@ -322,7 +342,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/button_bg"
                 android:onClick="createAccount"
