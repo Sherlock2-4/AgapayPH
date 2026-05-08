@@ -2,6 +2,7 @@ package com.example.agapayph;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -262,4 +263,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Boolean checkUserLogin(String username, String password) {
+
+        database = getReadableDatabase();
+
+        String selection = PK_USERS_USERNAME + " = ? AND " + USERS_PASSWORD + " = ?";
+        String[] selectionArgs = {username, password};
+
+        Cursor cursor = database.query(
+                TABLE_USERS,
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+
+            DataHolder.username = cursor.getString(cursor.getColumnIndexOrThrow(PK_USERS_USERNAME));
+            DataHolder.role = cursor.getString(cursor.getColumnIndexOrThrow(USERS_ROLE));
+
+            cursor.close();
+            return true;
+
+        }
+        return false;
+    }
 }

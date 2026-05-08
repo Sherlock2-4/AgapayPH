@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     Boolean status;
     String inputUsername, inputPassword;
+    DatabaseHelper dh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        DatabaseHelper dh = new DatabaseHelper(this);
+        dh = new DatabaseHelper(this);
         dh.getWritableDatabase();//checking if db is created
 
         sp = getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -45,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        JUST TO CLEAR IT UP
-//        editor = sp.edit();
-//        editor.clear();
-//        editor.apply();
+        editor = sp.edit();
+        editor.clear();
+        editor.apply();
 
     }
 
@@ -56,22 +58,16 @@ public class MainActivity extends AppCompatActivity {
         EditText etUsername = findViewById(R.id.editTextText2);
         EditText etPassword = findViewById(R.id.editTextTextPassword);
 
-        inputUsername = etUsername.getText().toString();
-        inputPassword = etPassword.getText().toString();
+        inputUsername = etUsername.getText().toString().trim();
+        inputPassword = etPassword.getText().toString().trim();
+
 
         // LOGIC FOR CHECKING USERNAME AND PASSWORD
-
-        Boolean result = true; //method here?
-
+        Boolean result = dh.checkUserLogin(inputUsername, inputPassword); //method here?
         // LOGIC FOR CHECKING USERNAME AND PASSWORD
-        // Pag nakapaglogin si user, ilagay sa DataHolder.role yung role nya, diko alam kung pano HAHAHAAHAHHAHA
+
 
         if (result) {
-
-
-            //Kapag Successful log in
-
-
 
             editor = sp.edit();
             editor.putString("username", inputUsername);
@@ -79,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("isLoggedIn", true);
             editor.apply();
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Success");
+            builder.setMessage("Welcome " + DataHolder.username + " Your role is " + DataHolder.role);
+            AlertDialog dialog = builder.create();
+            dialog.show();
 
         } else {
 
