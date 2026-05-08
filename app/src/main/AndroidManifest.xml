@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgapayPH">
         <activity
+            android:name=".MissingReport"
+            android:exported="false" />
+        <activity
             android:name=".ReportIncident"
             android:exported="false" />
         <activity
