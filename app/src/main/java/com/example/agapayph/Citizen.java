@@ -1,6 +1,8 @@
 package com.example.agapayph;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +26,13 @@ public class Citizen extends AppCompatActivity {
 
         TextView tvName = findViewById(R.id.textView17);
         tvName.setText("Citizen: " + DataHolder.username);
+
+    }
+
+    public void incidentClicked(View view) {
+
+        Intent i = new Intent(this, ReportIncident.class);
+        startActivity(i);
 
     }
 }

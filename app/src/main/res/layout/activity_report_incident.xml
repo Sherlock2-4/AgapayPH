@@ -58,7 +58,7 @@
                 android:text="Incident Title" />
 
             <EditText
-                android:id="@+id/editTextText2"
+                android:id="@+id/etTitle"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="30dp"
@@ -88,13 +88,14 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <androidx.cardview.widget.CardView
-
+                    android:id="@+id/cvFlood"
                     android:layout_width="150dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="#F2F2F2"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
+                    android:onClick="categorySelect"
                     >
 
                     <LinearLayout
@@ -123,13 +124,14 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-
+                    android:id="@+id/cvFire"
                     android:layout_width="150dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="#F2F2F2"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
+                    android:onClick="categorySelect"
                     >
 
                     <LinearLayout
@@ -165,13 +167,14 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-
+                    android:id="@+id/cvEarthquake"
                     android:layout_width="150dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="#F2F2F2"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
+                    android:onClick="categorySelect"
                     >
 
                     <LinearLayout
@@ -200,13 +203,14 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-
+                    android:id="@+id/cvMedical"
                     android:layout_width="150dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="#F2F2F2"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
+                    android:onClick="categorySelect"
                     >
 
                     <LinearLayout
@@ -242,13 +246,14 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-
+                    android:id="@+id/cvMissing"
                     android:layout_width="150dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="#F2F2F2"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
+                    android:onClick="categorySelect"
                     >
 
                     <LinearLayout
@@ -277,13 +282,14 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-
+                    android:id="@+id/cvInfrastructure"
                     android:layout_width="150dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="#F2F2F2"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
+                    android:onClick="categorySelect"
                     >
 
                     <LinearLayout
@@ -305,7 +311,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Infra"
+                            android:text="Infrastructure"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -335,7 +341,8 @@
                     android:layout_marginRight="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Low" />
+                    android:text="Low"
+                    android:onClick="severitySelect"/>
 
                 <Button
                     android:id="@+id/button4"
@@ -344,7 +351,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:text="Moderate" />
+                    android:text="Moderate"
+                    android:onClick="severitySelect"/>
 
                 <Button
                     android:id="@+id/button5"
@@ -353,7 +361,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:text="High" />
+                    android:text="High"
+                    android:onClick="severitySelect"/>
 
                 <Button
                     android:id="@+id/button6"
@@ -362,7 +371,8 @@
                     android:background="@drawable/critical_bg"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Critical" />
+                    android:text="Critical"
+                    android:onClick="severitySelect"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/textView258"
@@ -452,6 +462,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_height="wrap_content"
                 android:text="Submit Report"
+                android:onClick="submitClicked"
                 />
         </LinearLayout>
     </ScrollView>

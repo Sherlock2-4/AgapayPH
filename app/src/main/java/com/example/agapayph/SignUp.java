@@ -39,10 +39,10 @@ public class SignUp extends AppCompatActivity {
         CardView cvVolunteer = findViewById(R.id.cvVolunteer);
         CardView cvCitizen = findViewById(R.id.cvCitizen);
 
-        cvAdmin.setCardBackgroundColor(getResources().getColor(R.color.white));
-        cvResponder.setCardBackgroundColor(getResources().getColor(R.color.white));
-        cvVolunteer.setCardBackgroundColor(getResources().getColor(R.color.white));
-        cvCitizen.setCardBackgroundColor(getResources().getColor(R.color.white));
+        cvAdmin.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
+        cvResponder.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
+        cvVolunteer.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
+        cvCitizen.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
 
         CardView selectedCard = (CardView)view;
         selectedCard.setCardBackgroundColor(getResources().getColor(R.color.green));
