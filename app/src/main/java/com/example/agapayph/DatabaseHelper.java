@@ -15,7 +15,7 @@ import java.io.ByteArrayOutputStream;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AgapayPH.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     /*
     * NAMING SCHEME:
@@ -46,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String INCIDENTS_DATE_AND_TIME = "date_and_time";
     public static final String INCIDENTS_SEVERITY_LEVEL = "severity_level";
     public static final String INCIDENTS_PHOTO_PLACEHOLDER = "photo";
+    public static final String INCIDENTS_PRIORITY_CATEGORY = "priority";
     public static final String INCIDENTS_COORDINATE_LATITUDE = "coordinate_latitude";//first coordinate (x),z
     public static final String INCIDENTS_COORDINATE_LONGITUDE = "coordinate_longitude";//second coordinate x,(z)
     //=====================================================================
@@ -158,6 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 INCIDENTS_DATE_AND_TIME + " TEXT, " + //no built-in date datatype
                 INCIDENTS_SEVERITY_LEVEL + " TEXT, " +//low moderate high critical
                 INCIDENTS_PHOTO_PLACEHOLDER + " BLOB, " +
+                INCIDENTS_PRIORITY_CATEGORY + " TEXT, " +
                 INCIDENTS_COORDINATE_LATITUDE + " REAL, " +//float data type
                 INCIDENTS_COORDINATE_LONGITUDE + " REAL" +//float data type
                 ")";
@@ -282,7 +284,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean addIncident(String title, String category, String description, int affectedCount,
                                String barangay, String date_and_time, String severity_level,
-                               ImageView photo, double coordinate1, double coordinate2){
+                               ImageView photo, String priority, double coordinate1,
+                               double coordinate2){
 
         BitmapDrawable drawable = (BitmapDrawable) photo.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
@@ -297,6 +300,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(INCIDENTS_DATE_AND_TIME, date_and_time);
         cv.put(INCIDENTS_SEVERITY_LEVEL, severity_level);
         cv.put(INCIDENTS_PHOTO_PLACEHOLDER, getBitmapByte(bitmap));
+        cv.put(INCIDENTS_PRIORITY_CATEGORY, priority);
         cv.put(INCIDENTS_COORDINATE_LATITUDE, coordinate1);
         cv.put(INCIDENTS_COORDINATE_LONGITUDE, coordinate2);
 
@@ -305,7 +309,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public boolean addIncident(String title, String category, String description, int affectedCount,
                                String barangay, String date_and_time, String severity_level,
-                               double coordinate1, double coordinate2){
+                               String priority, double coordinate1, double coordinate2){
         database = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(INCIDENTS_TITLE, title);
@@ -316,10 +320,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(INCIDENTS_DATE_AND_TIME, date_and_time);
         cv.put(INCIDENTS_SEVERITY_LEVEL, severity_level);
         cv.put(INCIDENTS_PHOTO_PLACEHOLDER, "null");
+        cv.put(INCIDENTS_PRIORITY_CATEGORY, priority);
         cv.put(INCIDENTS_COORDINATE_LATITUDE, coordinate1);
         cv.put(INCIDENTS_COORDINATE_LONGITUDE, coordinate2);
 
         long result = database.insert(TABLE_INCIDENTS, null, cv);
+        return result > 0;
+    }
+    public boolean addEvacuationCenter(String evacuation_name, int capacity, int currentOccupancy,
+                                       String address){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(PK_EVACUATION_CENTER_NAME, evacuation_name);
+        cv.put(EVACUATION_CENTER_CAPACITY, capacity);
+        cv.put(EVACUATION_CENTER_CURRENT_OCCUPANCY, currentOccupancy);
+        cv.put(EVACUATION_CENTER_ADDRESS, address);
+
+        long result = database.insert(TABLE_EVACUATION_CENTERS, null, cv);
         return result > 0;
     }
 
@@ -360,6 +377,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Bitmap getImage(byte[] imageByte) {
+        //imageView.setImageByBitmap(getImage(cursor.getBlob(cursor.getColumnIndexOrThrow(INCIDENTS_PHOTO))))
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
         return bitmap;
     }
