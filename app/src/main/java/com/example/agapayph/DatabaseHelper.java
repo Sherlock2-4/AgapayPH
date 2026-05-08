@@ -12,10 +12,11 @@ import android.widget.ImageView;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AgapayPH.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     /*
     * NAMING SCHEME:
@@ -49,6 +50,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String INCIDENTS_PRIORITY_CATEGORY = "priority";
     public static final String INCIDENTS_COORDINATE_LATITUDE = "coordinate_latitude";//first coordinate (x),z
     public static final String INCIDENTS_COORDINATE_LONGITUDE = "coordinate_longitude";//second coordinate x,(z)
+    public static final String INCIDENTS_IS_ARCHIVED = "isArchived";
+    public static final String INCIDENTS_IS_RESOLVED = "isResolved";
     //=====================================================================
 
     //=====================================================================
@@ -58,6 +61,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String EVACUATION_CENTER_ADDRESS = "address";
     public static final String EVACUATION_CENTER_CAPACITY = "capacity";
     public static final String EVACUATION_CENTER_CURRENT_OCCUPANCY = "current_occupancy";
+    public static final String EVACUATION_CENTER_FOOD_PACKS = "food_packs";
+    public static final String EVACUATION_CENTER_WATER = "water";
+    public static final String EVACUATION_CENTER_MEDICINE_KIT = "medicine_kit";
     //=====================================================================
 
     //=====================================================================
@@ -161,14 +167,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 INCIDENTS_PHOTO_PLACEHOLDER + " BLOB, " +
                 INCIDENTS_PRIORITY_CATEGORY + " TEXT, " +
                 INCIDENTS_COORDINATE_LATITUDE + " REAL, " +//float data type
-                INCIDENTS_COORDINATE_LONGITUDE + " REAL" +//float data type
+                INCIDENTS_COORDINATE_LONGITUDE + " REAL, " +//float data type
+                INCIDENTS_IS_ARCHIVED + " INTEGER, " +
+                INCIDENTS_IS_RESOLVED + " INTEGER" +
                 ")";
 
         String CREATE_EVACUATION_CENTERS = "CREATE TABLE "+ TABLE_EVACUATION_CENTERS + "(" +
                 PK_EVACUATION_CENTER_NAME + " TEXT PRIMARY KEY, " +
                 EVACUATION_CENTER_CAPACITY + " INTEGER, " +
                 EVACUATION_CENTER_CURRENT_OCCUPANCY + " INTEGER, " +
-                EVACUATION_CENTER_ADDRESS + " TEXT" +
+                EVACUATION_CENTER_ADDRESS + " TEXT, " +
+                EVACUATION_CENTER_FOOD_PACKS + " INTEGER, " +
+                EVACUATION_CENTER_WATER + " INTEGER, " +
+                EVACUATION_CENTER_MEDICINE_KIT + " INTEGER" +
                 ")";
 
         String CREATE_VOLUNTEERS = "CREATE TABLE "+ TABLE_VOLUNTEERS + "(" +
@@ -376,7 +387,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = database.insert(TABLE_ASSIGNMENTS, null, cv);
         return result > 0;
     }
-    public boolean addMisingPerson(String full_name, int age, String description, String last_location,
+    public boolean addMissingPerson(String full_name, int age, String description, String last_location,
                                    String date_missing, String status){
         database = getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -442,6 +453,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = database.insert(TABLE_ACTIVITY_LOGS, null, cv);
         return result > 0;
     }
+    public boolean updateEvacuationOccupancy(int maxResidency, int currentOccupancy,
+                                             String evacuationName){
+        if(maxResidency > currentOccupancy){
+            database = getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put(EVACUATION_CENTER_CURRENT_OCCUPANCY, currentOccupancy);
+
+            long result = database.update(TABLE_EVACUATION_CENTERS, cv,
+                    PK_EVACUATION_CENTER_NAME + " = ?", new String[]{evacuationName});
+            return result > 0;
+        }else{
+            return false;
+        }
+    }
+    public boolean updateInventoryItemQuantity(int quantity, int inventory_id){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(INVENTORY_QUANTITY, quantity);
+
+        long result = database.update(TABLE_INVENTORY, cv, PK_INVENTORY_ID + " = ?",
+                new String[]{inventory_id+""});
+
+        return result > 0;
+    }
+
+    public ArrayList<ListEvacuationCenter> listEvacuationCenter () {
+        ArrayList<ListEvacuationCenter> evacuationData = new ArrayList<ListEvacuationCenter>();
+        database = getReadableDatabase();
+
+        Cursor cursor = database.query(TABLE_EVACUATION_CENTERS, null, null,
+                null, null, null, null);
+
+        do{
+            ListEvacuationCenter lec = new ListEvacuationCenter(
+                    cursor.getString(cursor.getColumnIndexOrThrow(PK_EVACUATION_CENTER_NAME)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(EVACUATION_CENTER_CAPACITY)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(EVACUATION_CENTER_CURRENT_OCCUPANCY)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(EVACUATION_CENTER_ADDRESS)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(EVACUATION_CENTER_FOOD_PACKS)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(EVACUATION_CENTER_WATER)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(EVACUATION_CENTER_MEDICINE_KIT))
+            );
+            evacuationData.add(lec);
+        }while(cursor.moveToNext());
+        return evacuationData;
+    }
     public Boolean checkUserLogin(String username, String password) {
 
         database = getReadableDatabase();
@@ -470,6 +527,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return false;
     }
+
 
     public byte[] getBitmapByte(Bitmap bitmap){//convert image
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

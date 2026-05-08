@@ -15,7 +15,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -54,16 +53,14 @@ public class MissingReport extends AppCompatActivity {
         name = etName.getText().toString().trim();
 
         if (!etAge.getText().toString().isEmpty()) {
-            age = Integer.parseInt(etAge.getText().toString().trim());
+            age = Integer.parseInt(etName.getText().toString().trim());
         }
         location = etLocation.getText().toString().trim();
         description = etDescription.getText().toString().trim();
 
         Calendar c = Calendar.getInstance(Locale.getDefault());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm a", Locale.getDefault());
 
-
-        boolean result = dh.addMisingPerson(name, age, description, location, sdf.format(c.getTime()), "Not Found");
+        boolean result = dh.addMissingPerson(name, age, description, location, c.getTime()+"", "Not Found");
 
         if (result) {
 
