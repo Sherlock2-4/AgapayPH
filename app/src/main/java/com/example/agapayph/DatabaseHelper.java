@@ -1,5 +1,6 @@
 package com.example.agapayph;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -243,4 +244,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onCreate(db);
     }
+
+    public Boolean addUser(String username, String password, String full_name, String contact_number, String address, String role) {
+
+        database = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("password", password);
+        values.put("full_name", full_name);
+        values.put("contact_number", contact_number);
+        values.put("address", address);
+        values.put("role", role);
+
+        long result = database.insert(TABLE_USERS, null, values);
+
+        return result > 0;
+
+    }
+
 }

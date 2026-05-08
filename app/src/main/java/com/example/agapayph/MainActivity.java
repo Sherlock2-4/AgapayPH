@@ -35,9 +35,19 @@ public class MainActivity extends AppCompatActivity {
 
         sp = getSharedPreferences("MyPref", MODE_PRIVATE);
 
-        DataHolder.username = sp.getString("username", "None");
-        DataHolder.role = sp.getString("role", "None");
+        DataHolder.username = sp.getString("username", "");
+        DataHolder.role = sp.getString("role", "");
         status = sp.getBoolean("isLoggedIn", false);
+
+        if (status) {
+            Toast.makeText(this, "user is logged in", Toast.LENGTH_SHORT).show();
+        }
+
+
+//        JUST TO CLEAR IT UP
+//        editor = sp.edit();
+//        editor.clear();
+//        editor.apply();
 
     }
 
@@ -51,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         // LOGIC FOR CHECKING USERNAME AND PASSWORD
 
-        Boolean result = false;
+        Boolean result = true; //method here?
 
         // LOGIC FOR CHECKING USERNAME AND PASSWORD
         // Pag nakapaglogin si user, ilagay sa DataHolder.role yung role nya, diko alam kung pano HAHAHAAHAHHAHA
@@ -60,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
 
             //Kapag Successful log in
+
+
+
             editor = sp.edit();
             editor.putString("username", inputUsername);
             editor.putString("role", DataHolder.role);

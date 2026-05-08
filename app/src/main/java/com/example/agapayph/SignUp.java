@@ -1,14 +1,21 @@
 package com.example.agapayph;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class SignUp extends AppCompatActivity {
+
+    DatabaseHelper dh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +27,66 @@ public class SignUp extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        dh = new DatabaseHelper(this);
+    }
+
+    public void roleSelect(View view) {
+
+        CardView cvAdmin = findViewById(R.id.cvAdmin);
+        CardView cvResponder = findViewById(R.id.cvResponder);
+        CardView cvVolunteer = findViewById(R.id.cvVolunteer);
+        CardView cvCitizen = findViewById(R.id.cvCitizen);
+
+        cvAdmin.setCardBackgroundColor(getResources().getColor(R.color.white));
+        cvResponder.setCardBackgroundColor(getResources().getColor(R.color.white));
+        cvVolunteer.setCardBackgroundColor(getResources().getColor(R.color.white));
+        cvCitizen.setCardBackgroundColor(getResources().getColor(R.color.white));
+
+        CardView selectedCard = (CardView)view;
+        selectedCard.setCardBackgroundColor(getResources().getColor(R.color.green));
+
+        if (cvAdmin == selectedCard) { DataHolder.role = "Administrator"; }
+        if (cvResponder == selectedCard) { DataHolder.role = "Responder"; }
+        if (cvVolunteer == selectedCard) { DataHolder.role = "Volunteer"; }
+        if (cvCitizen == selectedCard) { DataHolder.role = "Citizen"; }
+
+    }
+
+    public void createAccount(View view) {
+
+        String name = ((EditText)findViewById(R.id.etName)).getText().toString().trim();
+
+        long phone = 0;
+        String number = ((EditText)findViewById(R.id.editTextPhone)).getText().toString().trim();
+        if (!number.isEmpty()) {phone = Long.parseLong(number);}
+
+        String address = ((EditText)findViewById(R.id.editTextText3)).getText().toString().trim();
+        String username = ((EditText)findViewById(R.id.editTextText2)).getText().toString().trim();
+        String password = ((EditText)findViewById(R.id.editTextTextPassword)).getText().toString().trim();
+
+        if (name.isEmpty() || phone == 0 || address.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please fill up all the fields", Toast.LENGTH_SHORT).show();
+        } else if (DataHolder.role.isEmpty()) {
+            Toast.makeText(this, "Please select a role", Toast.LENGTH_SHORT).show();
+        } else {
+
+
+            Boolean result = dh.addUser(username, password, name, phone+"", address, DataHolder.role);
+
+            if (result) {
+
+                SharedPreferences sp = getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("username", username);
+                editor.putString("role", DataHolder.role);
+                editor.putBoolean("isLoggedIn", true);
+                editor.apply();
+                Toast.makeText(this, "Successful create account", Toast.LENGTH_SHORT).show();
+
+            } else {
+
+            }
+        }
     }
 }

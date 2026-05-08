@@ -46,7 +46,7 @@
         android:text="Full Name" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/etName"
         android:layout_marginLeft="30dp"
         android:textSize="15dp"
         android:layout_marginRight="30dp"
@@ -158,9 +158,11 @@
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvAdmin"
             android:layout_width="150dp"
             android:layout_marginRight="10dp"
-            android:layout_height="80dp" >
+            android:layout_height="80dp"
+            android:onClick="roleSelect">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -185,9 +187,11 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvResponder"
             android:layout_width="150dp"
             android:layout_marginLeft="10dp"
-            android:layout_height="80dp" >
+            android:layout_height="80dp"
+            android:onClick="roleSelect">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -219,9 +223,11 @@
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvVolunteer"
             android:layout_width="150dp"
             android:layout_height="80dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:onClick="roleSelect">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -245,9 +251,11 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvCitizen"
             android:layout_width="150dp"
             android:layout_height="80dp"
-            android:layout_marginLeft="10dp" >
+            android:layout_marginLeft="10dp"
+            android:onClick="roleSelect">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -278,6 +286,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         android:layout_height="wrap_content"
-        android:text="Create Account" />
+        android:text="Create Account"
+        android:onClick="createAccount"/>
 
 </LinearLayout>
