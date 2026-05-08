@@ -1,5 +1,6 @@
 package com.example.agapayph;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -82,7 +83,15 @@ public class SignUp extends AppCompatActivity {
                 editor.putString("role", DataHolder.role);
                 editor.putBoolean("isLoggedIn", true);
                 editor.apply();
-                Toast.makeText(this, "Successful create account", Toast.LENGTH_SHORT).show();
+
+                DataHolder.username = username;
+
+                if (DataHolder.role.equals("Citizen")) {
+
+                    Intent i = new Intent(this, Citizen.class);
+                    startActivity(i);
+
+                }
 
             } else {
 

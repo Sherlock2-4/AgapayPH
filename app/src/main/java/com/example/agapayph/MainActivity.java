@@ -42,14 +42,19 @@ public class MainActivity extends AppCompatActivity {
         status = sp.getBoolean("isLoggedIn", false);
 
         if (status) {
-            Toast.makeText(this, "user is logged in", Toast.LENGTH_SHORT).show();
+            if (DataHolder.role.equals("Citizen")) {
+
+                Intent i = new Intent(this, Citizen.class);
+                startActivity(i);
+
+            }
         }
 
 
 //        JUST TO CLEAR IT UP
-        editor = sp.edit();
-        editor.clear();
-        editor.apply();
+//        editor = sp.edit();
+//        editor.clear();
+//        editor.apply();
 
     }
 
@@ -75,11 +80,10 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("isLoggedIn", true);
             editor.apply();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Success");
-            builder.setMessage("Welcome " + DataHolder.username + " Your role is " + DataHolder.role);
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            DataHolder.username = inputUsername;
+
+            Intent i = new Intent(this, Citizen.class);
+            startActivity(i);
 
         } else {
 
