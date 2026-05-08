@@ -359,7 +359,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return outputStream.toByteArray();
     }
 
-    public Bitmap getImage(byte[] imageByte){
+    public Bitmap getImage(byte[] imageByte) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
         return bitmap;
     }
