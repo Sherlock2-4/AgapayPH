@@ -3,6 +3,7 @@ package com.example.agapayph;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,38 +25,42 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        dh = new DatabaseHelper(this);
-        dh.getWritableDatabase();//checking if db is created
+        try {
+            super.onCreate(savedInstanceState);
+            EdgeToEdge.enable(this);
+            setContentView(R.layout.activity_main);
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
+            dh = new DatabaseHelper(this);
+            dh.getWritableDatabase();//checking if db is created
 
-        sp = getSharedPreferences("MyPref", MODE_PRIVATE);
+            sp = getSharedPreferences("MyPref", MODE_PRIVATE);
 
-        DataHolder.username = sp.getString("username", "");
-        DataHolder.role = sp.getString("role", "");
-        status = sp.getBoolean("isLoggedIn", false);
+            DataHolder.username = sp.getString("username", "");
+            DataHolder.role = sp.getString("role", "");
+            status = sp.getBoolean("isLoggedIn", false);
 
-        if (status) {
-            if (DataHolder.role.equals("Citizen")) {
+            if (status) {
+                if (DataHolder.role.equals("Citizen")) {
 
-                Intent i = new Intent(this, Citizen.class);
-                startActivity(i);
 
+                    Intent i = new Intent(this, Citizen.class);
+                    startActivity(i);
+
+                }
             }
-        }
 
 
 //        JUST TO CLEAR IT UP
 //        editor = sp.edit();
 //        editor.clear();
 //        editor.apply();
-
+        } catch (Exception e) {
+            Log.e("CRITICAL_ERROR", "App failed during onCreate", e);
+        }
     }
 
     public void logInClicked(View view) {

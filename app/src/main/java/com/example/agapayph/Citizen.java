@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -15,6 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Citizen extends AppCompatActivity {
+
+    TextView tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,7 @@ public class Citizen extends AppCompatActivity {
             return insets;
         });
 
-        TextView tvName = findViewById(R.id.textView17);
+        tvName = findViewById(R.id.textView17);
         tvName.setText("Citizen: " + DataHolder.username);
 
     }
@@ -41,7 +44,7 @@ public class Citizen extends AppCompatActivity {
 
     public void logoutClicked(View view) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Citizen.this);
         builder.setTitle("Log Out");
         builder.setMessage("Are you sure you want to log out?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

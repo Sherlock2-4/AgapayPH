@@ -88,6 +88,7 @@ public class SignUp extends AppCompatActivity {
 
                 if (DataHolder.role.equals("Citizen")) {
 
+                    finish();
                     Intent i = new Intent(this, Citizen.class);
                     startActivity(i);
 
@@ -98,4 +99,14 @@ public class SignUp extends AppCompatActivity {
             }
         }
     }
+
+
+    public void back(View view) {
+
+        finish();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+
+    }
+
 }
