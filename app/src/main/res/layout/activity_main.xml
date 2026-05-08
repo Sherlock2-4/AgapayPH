@@ -38,6 +38,7 @@
         android:id="@+id/textView2"
         android:layout_marginTop="70dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="30dp"
         android:layout_width="wrap_content"
         android:textColor="@color/black"
@@ -51,6 +52,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
+        android:padding="15dp"
+        android:background="@drawable/input_border"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Enter your username"
@@ -63,6 +66,7 @@
         android:textColor="@color/black"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="30dp"
         android:textStyle="bold"
         android:layout_height="wrap_content"
@@ -71,12 +75,14 @@
     <EditText
         android:id="@+id/editTextTextPassword"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_height="wrap_content"
+        android:background="@drawable/input_border"
         android:ems="10"
-
-        android:inputType="textPassword" />
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="15dp" />
 
     <Button
         android:id="@+id/button"
@@ -84,6 +90,10 @@
         android:layout_width="match_parent"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bg"
         android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
         android:text="Sign In"
@@ -104,6 +114,7 @@
 
         <TextView
             android:id="@+id/textView5"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:textColor="#2196F3"
             android:layout_height="wrap_content"
