@@ -339,8 +339,106 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = database.insert(TABLE_EVACUATION_CENTERS, null, cv);
         return result > 0;
     }
+    public boolean addReliefRecords(String beneficiary_name, String barangay, String relief_type,
+                                    int quantity, String distribution_date, int volunteer_id){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(RELIEF_RECORD_BENEFICIARY_NAME, beneficiary_name);
+        cv.put(RELIEF_RECORD_BARANGAY, barangay);
+        cv.put(RELIEF_RECORD_RELIEF_TYPE, relief_type);
+        cv.put(RELIEF_RECORD_QUANTITY, quantity);
+        cv.put(RELIEF_RECORD_DISTRIBUTION_DATE, distribution_date);
+        cv.put(FK_RELIEF_RECORD_VOLUNTEER_ID, volunteer_id);
 
+        long result = database.insert(TABLE_RELIEF_RECORDS, null, cv);
+        return result > 0;
+    }
+    //SI VOLUNTEER PAADD AGAD IF VOLUNTEER UNG ROLE SA SIGN UP
+    public boolean addVolunteers(String username){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FK_VOLUNTEER_USERNAME, username);
 
+        long result = database.insert(TABLE_VOLUNTEERS, null, cv);
+        return result > 0;
+    }
+    public boolean addAssignments(int volunteer_id, String assignment, int isAccepted,
+                                  String completion_status){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FK_ASSIGNMENT_VOLUNTEER_ID, volunteer_id);
+        cv.put(ASSIGNMENT_TITLE, assignment);
+        cv.put(ASSIGNMENT_IS_ACCEPTED, isAccepted);
+        cv.put(ASSIGNMENT_COMPLETION_STATUS, completion_status);
+
+        long result = database.insert(TABLE_ASSIGNMENTS, null, cv);
+        return result > 0;
+    }
+    public boolean addMisingPerson(String full_name, int age, String last_location,
+                                   String description, String status){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MISSING_PERSON_NAME, full_name);
+        cv.put(MISSING_PERSON_AGE, age);
+        cv.put(MISSING_PERSON_LAST_LOCATION, last_location);
+        cv.put(MISSING_PERSON_DESCRIPTION, description);
+        cv.put(MISSING_PERSON_STATUS, status);
+
+        long result = database.insert(TABLE_MISSING_PERSONS, null, cv);
+        return result > 0;
+    }
+    public boolean addInventory(String item_name, int quantity, String name_evacuation){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(INVENTORY_ITEM_NAME, item_name);
+        cv.put(INVENTORY_QUANTITY, quantity);
+        cv.put(FK_INVENTORY_EVACUATION_CENTER_NAME, name_evacuation);
+
+        long result = database.insert(TABLE_INVENTORY, null, cv);
+        return result > 0;
+    }
+    public boolean addNotifaction(int incident_id, int missing_id, int inventory_id,
+                                  int assignment_id, String description, int isShown){
+
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        if(incident_id == 0){
+            cv.put(FK_NOTIFICATION_INCIDENT_ID, "null");
+        }else {
+            cv.put(FK_NOTIFICATION_INCIDENT_ID, incident_id);
+        }
+        if(missing_id == 0){
+            cv.put(FK_NOTIFICATION_MISSING_ID, "null");
+        }else {
+            cv.put(FK_NOTIFICATION_MISSING_ID, incident_id);
+        }
+        if(inventory_id == 0){
+            cv.put(FK_NOTIFICATION_INVENTORY_ID, "null");
+        }else {
+            cv.put(FK_NOTIFICATION_INVENTORY_ID, inventory_id);
+        }
+        if(assignment_id == 0){
+            cv.put(FK_NOTIFICATION_ASSIGNMENT_ID, "null");
+        }else {
+            cv.put(FK_NOTIFICATION_ASSIGNMENT_ID, assignment_id);
+        }
+        cv.put(NOTIFICATION_DESCRIPTION, description);
+        cv.put(NOTIFICATION_IS_SHOWN, isShown);
+
+        long result = database.insert(TABLE_NOTIFICATIONS, null, cv);
+        return result > 0;
+    }
+    public boolean addActivityLogs(String username, String activity_desc, String date_and_time){
+        database = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FK_ACTIVITY_USERNAME, username);
+        cv.put(ACTIVITY_LOG_DESCRIPTION, activity_desc);
+        cv.put(ACTIVITY_LOG_DATE_AND_TIME, date_and_time);
+
+        long result = database.insert(TABLE_ACTIVITY_LOGS, null, cv);
+        return result > 0;
+    }
     public Boolean checkUserLogin(String username, String password) {
 
         database = getReadableDatabase();
