@@ -196,7 +196,7 @@
                     android:layout_width="150dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
-                    app:cardBackgroundColor="#F2F2F2"
+                    app:cardBackgroundColor="#FFCC9C"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
                     android:onClick="roleSelect">
@@ -232,7 +232,7 @@
                     android:layout_height="80dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
-                    app:cardBackgroundColor="#F2F2F2"
+                    app:cardBackgroundColor="#FF7878"
                     android:layout_marginLeft="10dp"
                     android:onClick="roleSelect">
 
@@ -274,7 +274,7 @@
                     android:layout_width="150dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
-                    app:cardBackgroundColor="#F2F2F2"
+                    app:cardBackgroundColor="#FFF297"
                     android:layout_height="80dp"
                     android:layout_marginRight="10dp"
                     android:onClick="roleSelect">
@@ -310,7 +310,7 @@
                     android:layout_height="80dp"
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="5dp"
-                    app:cardBackgroundColor="#F2F2F2"
+                    app:cardBackgroundColor="#B9E6FF"
                     android:layout_marginLeft="10dp"
                     android:onClick="roleSelect">
 
