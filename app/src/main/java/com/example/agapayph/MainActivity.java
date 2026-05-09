@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
             DataHolder.username = sp.getString("username", "");
             DataHolder.role = sp.getString("role", "");
+            DataHolder.realName = sp.getString("realname", "");
             status = sp.getBoolean("isLoggedIn", false);
 
             if (status) {
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         if (result) {
 
             editor = sp.edit();
+            editor.putString("realname", DataHolder.realName);
             editor.putString("username", inputUsername);
             editor.putString("role", DataHolder.role);
             editor.putBoolean("isLoggedIn", true);

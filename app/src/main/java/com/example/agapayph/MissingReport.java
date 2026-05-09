@@ -53,7 +53,7 @@ public class MissingReport extends AppCompatActivity {
         name = etName.getText().toString().trim();
 
         if (!etAge.getText().toString().isEmpty()) {
-            age = Integer.parseInt(etName.getText().toString().trim());
+            age = Integer.parseInt(etAge.getText().toString().trim());
         }
         location = etLocation.getText().toString().trim();
         description = etDescription.getText().toString().trim();

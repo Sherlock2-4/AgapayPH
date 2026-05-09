@@ -1,6 +1,7 @@
 package com.example.agapayph;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +76,15 @@ public class ReliefAdapter extends BaseAdapter {
         vh.tvDateTime.setText(item.distribution_date+"");
 
         DatabaseHelper dh = new DatabaseHelper(view.getContext());
-        vh.tvVolunteer.setText(item.volunteer_id+"");
+        List<ListVolunteerNames> names = dh.listVolunteerNames();
+        for (ListVolunteerNames lvn: names) {
+            if (lvn.volunteer_id == item.volunteer_id) {
+
+                vh.tvVolunteer.setText(lvn.volunteer_username);
+                break;
+            }
+        }
+
 
         return view;
     }

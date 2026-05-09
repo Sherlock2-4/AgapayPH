@@ -10,6 +10,7 @@ import java.util.List;
 public class DataHolder {
 
     public static String username;
+    public static String realName;
     public static String role;
     public static List<ListEvacuationCenter> evacList;
     public static boolean isEditEvacSession;

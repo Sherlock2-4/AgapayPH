@@ -67,9 +67,7 @@ public class ReliefVolunteerAdapter extends BaseAdapter {
         vh.tvBarangay.setText(item.barangay+"");
         vh.tvRelief.setText(item.relief_type+"");
         vh.tvQuantity.setText(item.quantity+"");
-
-        DatabaseHelper dh = new DatabaseHelper(view.getContext());
-        vh.tvVolunteer.setText(item.volunteer_id+"");
+        vh.tvVolunteer.setText(DataHolder.realName);
 
 
 

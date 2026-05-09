@@ -129,7 +129,7 @@ public class Volunteer extends AppCompatActivity {
 
         for (ListReliefRecord l: dataRelief) {
 
-            if (l.volunteer_id == DataHolder.volunteerId) {
+            if (l.volunteer_name.equals(DataHolder.realName)) {
                 dataReliefFiltered.add(l);
             }
 
@@ -142,7 +142,9 @@ public class Volunteer extends AppCompatActivity {
 
     public void tabMissing(View view) {
 
-        //dataMissing = dh.mi
+        dataMissing = dh.listMissingPerson();
+        adapterMissing = new MissingPersonAdapter(this, dataMissing);
+        lvMain.setAdapter(adapterMissing);
 
     }
 }

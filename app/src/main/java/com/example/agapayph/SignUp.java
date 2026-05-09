@@ -80,6 +80,7 @@ public class SignUp extends AppCompatActivity {
 
                 SharedPreferences sp = getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
+                editor.putString("realname", name);
                 editor.putString("username", username);
                 editor.putString("role", DataHolder.role);
                 editor.putBoolean("isLoggedIn", true);

@@ -582,6 +582,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         return cursor.getString(cursor.getColumnIndexOrThrow(PK_VOLUNTEER_ID));
     }
+
     public String getAssignmentId(String assignment){
         database = getReadableDatabase();
         Cursor cursor = database.query(TABLE_ASSIGNMENTS, new String[]{ PK_ASSIGNMENT_ID },
@@ -861,6 +862,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             DataHolder.username = cursor.getString(cursor.getColumnIndexOrThrow(PK_USERS_USERNAME));
             DataHolder.role = cursor.getString(cursor.getColumnIndexOrThrow(USERS_ROLE));
+            DataHolder.realName = cursor.getString(cursor.getColumnIndexOrThrow(USERS_FULL_NAME));
 
             cursor.close();
             return true;

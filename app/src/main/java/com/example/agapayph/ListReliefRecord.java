@@ -20,5 +20,6 @@ public class ListReliefRecord {
         this.quantity = quantity;
         this.distribution_date = distribution_date;
         this.volunteer_name = volunteer_name;
+        this.volunteer_id = volunteer_id;
     }
 }
