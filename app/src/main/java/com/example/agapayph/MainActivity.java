@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (DataHolder.role.equals("Volunteer")) {
 
+
+                    DataHolder.volunteerId = Integer.parseInt(dh.getVolunteerId(sp.getString("username", "")));
                     finish();
                     Intent i = new Intent(this, Volunteer.class);
                     startActivity(i);
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (DataHolder.role.equals("Volunteer")) {
 
+                DataHolder.volunteerId = Integer.parseInt(dh.getVolunteerId(sp.getString("username", "")));
                 finish();
                 Intent i = new Intent(this, Volunteer.class);
                 startActivity(i);

@@ -88,4 +88,11 @@ public class Admin extends AppCompatActivity {
         startActivity(i);
 
     }
+
+    public void toManageRelief(View view) {
+
+        Intent i = new Intent(this, ManageRelief.class);
+        startActivity(i);
+
+    }
 }
