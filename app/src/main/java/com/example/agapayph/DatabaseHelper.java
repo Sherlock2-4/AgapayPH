@@ -666,12 +666,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public ArrayList<ListReliefRecord> listReliefRecord () {
         ArrayList<ListReliefRecord> reliefData = new ArrayList<ListReliefRecord>();
+        ArrayList<ListVolunteerNames> tempVolunteer;
+        ArrayList<ListFullNameUser> tempUsers;
+
+        tempVolunteer = listVolunteerNames();
+        tempUsers = listFullNameUsers();
+
+
+
         database = getReadableDatabase();
 
         Cursor cursor = database.query(TABLE_RELIEF_RECORDS, null, null,
                 null, null, null, null);
 
         while(cursor.getCount() > 0 && cursor.moveToNext()){
+
+            String volunteerName = "";
+            for(int i = 0; i < tempVolunteer.size(); i++){
+                if(cursor.getInt(cursor.getColumnIndexOrThrow(FK_RELIEF_RECORD_VOLUNTEER_ID)) == (tempVolunteer.get(i).volunteer_id)){
+                    for(int j = 0; j < tempUsers.size(); j++){
+                        if(tempVolunteer.get(i).volunteer_username.equals(tempUsers.get(j).username)){
+                            volunteerName = tempUsers.get(j).full_name;
+                            break;
+                        }
+                    }
+                }
+            }
+
             ListReliefRecord lrf = new ListReliefRecord(
                     cursor.getInt(cursor.getColumnIndexOrThrow(PK_RELIEF_RECORD_ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_BENEFICIARY_NAME)),
@@ -679,7 +700,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_RELIEF_TYPE)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(RELIEF_RECORD_QUANTITY)),
                     cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_DISTRIBUTION_DATE)),
-                    cursor.getInt(cursor.getColumnIndexOrThrow(FK_RELIEF_RECORD_VOLUNTEER_ID))
+                    volunteerName
             );
             reliefData.add(lrf);
         }
@@ -699,6 +720,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndexOrThrow(FK_VOLUNTEER_USERNAME))
             );
             volunteerData.add(lvn);
+        }
+        cursor.close();
+        return volunteerData;
+    }
+
+    public ArrayList<ListFullNameUser> listFullNameUsers () {
+        ArrayList<ListFullNameUser> volunteerData = new ArrayList<ListFullNameUser>();
+        database = getReadableDatabase();
+
+        Cursor cursor = database.query(TABLE_USERS,
+                new String[] {PK_USERS_USERNAME, USERS_FULL_NAME}, null,
+                null, null, null, null);
+
+        while(cursor.getCount() > 0 && cursor.moveToNext()){
+            ListFullNameUser lfnu = new ListFullNameUser(
+                    cursor.getString(cursor.getColumnIndexOrThrow(PK_USERS_USERNAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(USERS_FULL_NAME))
+            );
+            volunteerData.add(lfnu);
         }
         cursor.close();
         return volunteerData;
