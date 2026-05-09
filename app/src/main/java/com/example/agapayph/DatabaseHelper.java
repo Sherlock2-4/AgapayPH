@@ -665,7 +665,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return evacuationData;
     }
     public ArrayList<ListReliefRecord> listReliefRecord () {
-        ArrayList<ListReliefRecord> evacuationData = new ArrayList<ListReliefRecord>();
+        ArrayList<ListReliefRecord> reliefData = new ArrayList<ListReliefRecord>();
         database = getReadableDatabase();
 
         Cursor cursor = database.query(TABLE_RELIEF_RECORDS, null, null,
@@ -681,10 +681,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_DISTRIBUTION_DATE)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(FK_RELIEF_RECORD_VOLUNTEER_ID))
             );
-            evacuationData.add(lrf);
+            reliefData.add(lrf);
         }
         cursor.close();
-        return evacuationData;
+        return reliefData;
+    }
+    public ArrayList<ListVolunteerNames> listVolunteerNames () {
+        ArrayList<ListVolunteerNames> volunteerData = new ArrayList<ListVolunteerNames>();
+        database = getReadableDatabase();
+
+        Cursor cursor = database.query(TABLE_VOLUNTEERS, null, null,
+                null, null, null, null);
+
+        while(cursor.getCount() > 0 && cursor.moveToNext()){
+            ListVolunteerNames lvn = new ListVolunteerNames(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(PK_VOLUNTEER_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(FK_VOLUNTEER_USERNAME))
+            );
+            volunteerData.add(lvn);
+        }
+        cursor.close();
+        return volunteerData;
     }
     public Boolean checkUserLogin(String username, String password) {
 
