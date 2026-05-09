@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.TextView;
@@ -35,6 +37,8 @@ public class Citizen extends AppCompatActivity {
 
         tvName = findViewById(R.id.textView17);
         tvName.setText("Citizen: " + DataHolder.username);
+
+        performTaskWithLoading();
 
     }
 
@@ -91,7 +95,7 @@ public class Citizen extends AppCompatActivity {
 
     }
 
-    public void call911(View view) {
+    public void call911(View view) { //NOT WORKING
 
         TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -102,8 +106,25 @@ public class Citizen extends AppCompatActivity {
              startActivity(i);
          }
 
+    }
 
+    public void performTaskWithLoading() {  //NOT WORKING
+        View loader = findViewById(R.id.loadingOverlay);
 
+        // 1. Start Loading
+        loader.bringToFront();
+        loader.setVisibility(View.VISIBLE);
 
+        // 2. Delay for 2 seconds
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // 3. Stop Loading
+                loader.setVisibility(View.GONE);
+
+                // 4. Do your actual work (e.g., refresh list, save to DB)
+                Toast.makeText(getApplicationContext(), "Data Updated!", Toast.LENGTH_SHORT).show();
+            }
+        }, 10000);
     }
 }
