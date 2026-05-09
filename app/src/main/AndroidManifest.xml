@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgapayPH">
         <activity
+            android:name=".editresourcetrack"
+            android:exported="false" />
+        <activity
             android:name=".ManageRelief"
             android:exported="false" />
         <activity
