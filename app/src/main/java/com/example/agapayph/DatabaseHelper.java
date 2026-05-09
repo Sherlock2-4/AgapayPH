@@ -457,46 +457,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = database.insert(TABLE_ACTIVITY_LOGS, null, cv);
         return result > 0;
     }
-    public boolean updateEvacuationOccupancy(int maxResidency, int currentOccupancy,
-                                             String evacuationName){
+    public boolean updateEvacuationCenter(String newEvacuationCenterName, int maxResidency,
+                                          int currentOccupancy, String address, int foodPacks,
+                                          int water, int medicineKit, String oldEvacuationName){
+        database = getWritableDatabase();
         if(maxResidency > currentOccupancy){
-            database = getWritableDatabase();
             ContentValues cv = new ContentValues();
+            cv.put(PK_EVACUATION_CENTER_NAME, newEvacuationCenterName);
+            cv.put(EVACUATION_CENTER_CAPACITY, maxResidency);
             cv.put(EVACUATION_CENTER_CURRENT_OCCUPANCY, currentOccupancy);
+            cv.put(EVACUATION_CENTER_ADDRESS, address);
+            cv.put(EVACUATION_CENTER_FOOD_PACKS, foodPacks);
+            cv.put(EVACUATION_CENTER_WATER, water);
+            cv.put(EVACUATION_CENTER_MEDICINE_KIT, medicineKit);
 
             long result = database.update(TABLE_EVACUATION_CENTERS, cv,
-                    PK_EVACUATION_CENTER_NAME + " = ?", new String[]{evacuationName});
+                    PK_EVACUATION_CENTER_NAME + "= ?", new String[]{oldEvacuationName});
             return result > 0;
         }else{
             return false;
         }
-    }
-    public boolean updateEvacuationFoodPacks(int foodPacks, String evacuationName){
-        database = getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(EVACUATION_CENTER_FOOD_PACKS, foodPacks);
-
-        long result = database.update(TABLE_EVACUATION_CENTERS, cv,
-                PK_EVACUATION_CENTER_NAME + " = ?", new String[]{evacuationName});
-        return result > 0;
-    }
-    public boolean updateEvacuationWater(int water, String evacuationName){
-        database = getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(EVACUATION_CENTER_WATER, water);
-
-        long result = database.update(TABLE_EVACUATION_CENTERS, cv,
-                PK_EVACUATION_CENTER_NAME + " = ?", new String[]{evacuationName});
-        return result > 0;
-    }
-    public boolean updateEvacuationMedicineKit(int medicineKit, String evacuationName){
-        database = getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(EVACUATION_CENTER_MEDICINE_KIT, medicineKit);
-
-        long result = database.update(TABLE_EVACUATION_CENTERS, cv,
-                PK_EVACUATION_CENTER_NAME + " = ?", new String[]{evacuationName});
-        return result > 0;
     }
     public boolean updateInventoryItemQuantity(int quantity, int inventory_id){
         database = getWritableDatabase();
