@@ -35,10 +35,20 @@ public class Admin extends AppCompatActivity {
 
     public void toAddEvacuation(View view) {
 
+        DataHolder.isEditEvacSession = false;
         Intent i = new Intent(this, AddEvaculation.class);
         startActivity(i);
 
     }
+
+    public void toManageEvacuation(View view) {
+
+        Intent i = new Intent(this, ManageEvacuation.class);
+        startActivity(i);
+
+    }
+
+
 
     public void logoutClicked(View view) {
 

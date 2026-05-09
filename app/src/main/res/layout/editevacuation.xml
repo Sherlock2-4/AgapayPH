@@ -26,7 +26,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/ivEdit"
                 android:background="#F8F2C5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 android:layout_weight="1"
                 android:text="Meds: 30" />
             <ImageView
-                android:id="@+id/imageView65"
+                android:id="@+id/ivDelete"
                 android:background="#EDDEDE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -4,7 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -42,13 +44,13 @@ public class AddEvaculation extends AppCompatActivity {
 
         dh = new DatabaseHelper(this);
 
+        if (DataHolder.isEditEvacSession) { fillData(); }
+
     }
 
     public void back (View view) {
 
         finish();
-        Intent i = new Intent(this, Admin.class);
-        startActivity(i);
 
     }
 
@@ -103,6 +105,25 @@ public class AddEvaculation extends AppCompatActivity {
             dialog.show();
 
         }
+
+    }
+
+    public void fillData() {
+
+        TextView tvTitle = findViewById(R.id.tvTitle);
+        Button btnSubmit = findViewById(R.id.btnSubmit);
+
+        etName.setText(DataHolder.evacName);
+        etBarangay.setText(DataHolder.evacAddress);
+        etCapacity.setText(DataHolder.evacCapacity+"");
+        etOccupancy.setText(DataHolder.evacOccupancy+"");
+        etFood.setText(DataHolder.evacFood);
+        etWater.setText(DataHolder.evacWater);
+        etMedicine.setText(DataHolder.evacMedicine);
+
+        tvTitle.setText("Edit Evacuation Center");
+        btnSubmit.setText("EDIT CENTER");
+
 
     }
 }

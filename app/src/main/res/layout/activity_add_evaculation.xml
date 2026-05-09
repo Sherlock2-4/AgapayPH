@@ -23,7 +23,7 @@
             android:onClick="back"/>
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -234,7 +234,7 @@
                 />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
