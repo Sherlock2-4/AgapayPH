@@ -98,6 +98,14 @@ public class SignUp extends AppCompatActivity {
                     Intent i = new Intent(this, Admin.class);
                     startActivity(i);
 
+                } else if (DataHolder.role.equals("Volunteer")) {
+
+                    dh.addVolunteers(username);
+
+                    finish();
+                    Intent i = new Intent(this, Volunteer.class);
+                    startActivity(i);
+
                 }
 
             } else {

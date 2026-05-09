@@ -339,13 +339,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result > 0;
     }
     public boolean addEvacuationCenter(String evacuation_name, int capacity, int currentOccupancy,
-                                       String address){
+                                       String address, String food, String water, String medicine){
         database = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(PK_EVACUATION_CENTER_NAME, evacuation_name);
         cv.put(EVACUATION_CENTER_CAPACITY, capacity);
         cv.put(EVACUATION_CENTER_CURRENT_OCCUPANCY, currentOccupancy);
         cv.put(EVACUATION_CENTER_ADDRESS, address);
+        cv.put(EVACUATION_CENTER_FOOD_PACKS, food);
+        cv.put(EVACUATION_CENTER_WATER, water);
+        cv.put(EVACUATION_CENTER_MEDICINE_KIT, medicine);
 
         long result = database.insert(TABLE_EVACUATION_CENTERS, null, cv);
         return result > 0;
@@ -652,8 +655,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.query(TABLE_EVACUATION_CENTERS, null, null,
                 null, null, null, null);
 
-        cursor.moveToFirst();
-        cursor.moveToFirst();
         while(cursor.moveToNext()){
             ListEvacuationCenter lec = new ListEvacuationCenter(
                     cursor.getString(cursor.getColumnIndexOrThrow(PK_EVACUATION_CENTER_NAME)),
@@ -666,6 +667,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             );
             evacuationData.add(lec);
         }
+        cursor.close();
         return evacuationData;
     }
     public Boolean checkUserLogin(String username, String password) {

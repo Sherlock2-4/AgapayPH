@@ -90,7 +90,8 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_bg"
                 android:text="+ Log relief distribution"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:onClick="logRelief"/>
         </LinearLayout>
 
     </ScrollView>

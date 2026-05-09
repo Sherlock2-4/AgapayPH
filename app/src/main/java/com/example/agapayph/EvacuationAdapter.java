@@ -39,6 +39,9 @@ public class EvacuationAdapter extends BaseAdapter {
         TextView tvCapacity;
         TextView tvOccupancy;
         TextView tvAddress;
+        TextView tvFood;
+        TextView tvWater;
+        TextView tvMedicine;
 
     }
 
@@ -54,6 +57,9 @@ public class EvacuationAdapter extends BaseAdapter {
             vh.tvCapacity = view.findViewById(R.id.tvCapacity);
             vh.tvAddress = view.findViewById(R.id.tvEvacAddress);
             vh.tvOccupancy = view.findViewById(R.id.tvOccupancy);
+            vh.tvFood = view.findViewById(R.id.tvFood);
+            vh.tvWater = view.findViewById(R.id.tvWater);
+            vh.tvMedicine = view.findViewById(R.id.tvMedicine);
 
             view.setTag(vh);
 
@@ -68,6 +74,9 @@ public class EvacuationAdapter extends BaseAdapter {
         vh.tvCapacity.setText(item.capacity+"");
         vh.tvOccupancy.setText(item.current_occupancy+"");
         vh.tvAddress.setText(item.address);
+        vh.tvFood.setText("Food: " + item.food_packs);
+        vh.tvWater.setText("Water: " + item.water + "L");
+        vh.tvMedicine.setText("Meds: " + item.medicine_kit);
 
         return view;
     }

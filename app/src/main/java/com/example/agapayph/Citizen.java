@@ -1,9 +1,12 @@
 package com.example.agapayph;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +88,22 @@ public class Citizen extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
+    }
+
+    public void call911(View view) {
+
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+
+         if (tm != null && tm.getSimState() == TelephonyManager.SIM_STATE_READY) {
+             Intent i = new Intent(Intent.ACTION_CALL).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+             i.putExtra("simSlot", 0);
+             i.setData(Uri.parse("tel:" + 911));
+             startActivity(i);
+         }
+
+
+
 
     }
 }

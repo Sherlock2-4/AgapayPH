@@ -71,4 +71,11 @@ public class Admin extends AppCompatActivity {
         dialog.show();
 
     }
+
+    public void logRelief(View view) {
+
+        Intent i = new Intent(this, ResourceTracking.class);
+        startActivity(i);
+
+    }
 }
