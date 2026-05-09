@@ -379,14 +379,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = database.insert(TABLE_VOLUNTEERS, null, cv);
         return result > 0;
     }
-    public boolean addAssignments(int volunteer_id, String assignment, int isAccepted,
-                                  String completion_status){
+    public boolean addAssignments(int volunteer_id, String assignment, int isAccepted){
         database = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FK_ASSIGNMENT_VOLUNTEER_ID, volunteer_id);
         cv.put(ASSIGNMENT_TITLE, assignment);
         cv.put(ASSIGNMENT_IS_ACCEPTED, isAccepted);
-        cv.put(ASSIGNMENT_COMPLETION_STATUS, completion_status);
+        cv.putNull(ASSIGNMENT_COMPLETION_STATUS);
 
         long result = database.insert(TABLE_ASSIGNMENTS, null, cv);
         return result > 0;
@@ -628,19 +627,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         return cursor.getString(cursor.getColumnIndexOrThrow(PK_INCIDENTS_ID));
     }
+    public boolean deleteMissingPerson(int missing_id){
+        database = getWritableDatabase();
 
-    public Cursor filteredSelection(String tableName, String toSearch, String column){
-        database = getReadableDatabase();
-        Cursor cursor = database.query(tableName, new String[]{column}, column + " = ?",
-                new String[]{toSearch}, null, null, null);
-        return cursor;
+        long result = database.delete(TABLE_MISSING_PERSONS,
+                PK_MISSING_PERSON_ID + " = ? AND ",
+                new String[]{ missing_id+""});
+        return result > 0;
     }
+    public boolean deleteMissingPerson(String missing_name){
+        database = getWritableDatabase();
 
-    public Cursor selectAllRowFromTable(String tableName){
-        database = getReadableDatabase();
-        Cursor cursor = database.query(tableName, null, null,
-                null, null, null, null);
-        return cursor;
+        long result = database.delete(TABLE_MISSING_PERSONS,
+                        MISSING_PERSON_NAME + " = ?",
+                new String[]{missing_name});
+        return result > 0;
+    }
+    public boolean deleteMissingPerson(int missing_id, String missing_name){
+        database = getWritableDatabase();
+
+        long result = database.delete(TABLE_MISSING_PERSONS,
+                PK_MISSING_PERSON_ID + " = ? AND "+
+                        MISSING_PERSON_NAME + " = ?",
+                new String[]{ missing_id+"", missing_name});
+        return result > 0;
+    }
+    public boolean deleteAssignment(int assignment_id){
+        database = getWritableDatabase();
+
+        long result = database.delete(TABLE_ASSIGNMENTS,
+                PK_ASSIGNMENT_ID + " = ? AND ",
+                new String[]{ assignment_id+""});
+        return result > 0;
     }
     public ArrayList<ListEvacuationCenter> listEvacuationCenter () {
         ArrayList<ListEvacuationCenter> evacuationData = new ArrayList<ListEvacuationCenter>();
@@ -726,6 +744,82 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return volunteerData;
+    }
+    public ArrayList<ListMissingPerson> listMissingPerson () {
+        ArrayList<ListMissingPerson> missingpPersonData = new ArrayList<ListMissingPerson>();
+        database = getReadableDatabase();
+
+        Cursor cursor = database.query(TABLE_MISSING_PERSONS, null, null,
+                null, null, null, null);
+
+        while(cursor.getCount() > 0 && cursor.moveToNext()){
+            ListMissingPerson lmp = new ListMissingPerson(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(PK_MISSING_PERSON_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(MISSING_PERSON_NAME)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(MISSING_PERSON_AGE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(MISSING_PERSON_DESCRIPTION)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(MISSING_PERSON_LAST_LOCATION)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(MISSING_PERSON_DATE_MISSING)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(MISSING_PERSON_STATUS))
+            );
+            missingpPersonData.add(lmp);
+        }
+        cursor.close();
+        return missingpPersonData;
+    }
+    public ArrayList<ListAssignments> listAssignment () {
+        ArrayList<ListAssignments> assignmentsData = new ArrayList<ListAssignments>();
+        ArrayList<ListVolunteerNames> tempVolunteer = listVolunteerNames();
+        ArrayList<ListFullNameUser> tempUsers = listFullNameUsers();
+
+
+        database = getReadableDatabase();
+
+        Cursor cursor = database.query(TABLE_MISSING_PERSONS, null, null,
+                null, null, null, null);
+
+        while(cursor.getCount() > 0 && cursor.moveToNext()){
+
+            String volunteerName = "";
+            int volunteer_id = cursor.getInt(cursor.getColumnIndexOrThrow(FK_ASSIGNMENT_VOLUNTEER_ID));
+            String isAccepted = "";
+
+            for(int i = 0; i < tempVolunteer.size(); i++){
+                if(volunteer_id == (tempVolunteer.get(i).volunteer_id)){
+                    for(int j = 0; j < tempUsers.size(); j++){
+                        if(tempVolunteer.get(i).volunteer_username.
+                                equals(tempUsers.get(j).username)){
+                            volunteerName = tempUsers.get(j).full_name;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            switch(cursor.getString(cursor.getColumnIndexOrThrow(ASSIGNMENT_IS_ACCEPTED))){
+                case "null":
+                    isAccepted = "Waiting for Confirmation";
+                    break;
+                case "0":
+                    isAccepted = "DECLINED";
+                    break;
+                case "1":
+                    isAccepted = "ACCEPTED";
+                    break;
+
+            }
+
+            ListAssignments la = new ListAssignments(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(PK_ASSIGNMENT_ID)),
+                    volunteer_id, volunteerName,
+                    cursor.getString(cursor.getColumnIndexOrThrow(ASSIGNMENT_TITLE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(ASSIGNMENT_COMPLETION_STATUS)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(ASSIGNMENT_IS_ACCEPTED))
+            );
+            assignmentsData.add(la);
+        }
+        cursor.close();
+        return assignmentsData;
     }
 
     public ArrayList<ListFullNameUser> listFullNameUsers () {
