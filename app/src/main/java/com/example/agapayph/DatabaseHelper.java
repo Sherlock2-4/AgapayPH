@@ -682,10 +682,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while(cursor.getCount() > 0 && cursor.moveToNext()){
 
             String volunteerName = "";
+            int volunteer_id = cursor.getInt(cursor.getColumnIndexOrThrow(FK_RELIEF_RECORD_VOLUNTEER_ID));
             for(int i = 0; i < tempVolunteer.size(); i++){
-                if(cursor.getInt(cursor.getColumnIndexOrThrow(FK_RELIEF_RECORD_VOLUNTEER_ID)) == (tempVolunteer.get(i).volunteer_id)){
+                if(volunteer_id == (tempVolunteer.get(i).volunteer_id)){
                     for(int j = 0; j < tempUsers.size(); j++){
-                        if(tempVolunteer.get(i).volunteer_username.equals(tempUsers.get(j).username)){
+                        if(tempVolunteer.get(i).volunteer_username.
+                                equals(tempUsers.get(j).username)){
                             volunteerName = tempUsers.get(j).full_name;
                             break;
                         }
@@ -700,7 +702,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_RELIEF_TYPE)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(RELIEF_RECORD_QUANTITY)),
                     cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_DISTRIBUTION_DATE)),
-                    volunteerName
+                    volunteerName, volunteer_id
+
             );
             reliefData.add(lrf);
         }

@@ -8,10 +8,11 @@ public class ListReliefRecord {
     public int quantity;
     public String distribution_date;
     public String volunteer_name;
+    public int volunteer_id;
 
     public ListReliefRecord(int relief_id, String beneficiary_name, String barangay,
                             String relief_type, int quantity, String distribution_date,
-                            String volunteer_name){
+                            String volunteer_name, int volunteer_id){
         this.relief_id = relief_id;
         this.beneficiary_name = beneficiary_name;
         this.barangay = barangay;
