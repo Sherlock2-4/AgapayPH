@@ -664,6 +664,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return evacuationData;
     }
+    public ArrayList<ListReliefRecord> listReliefRecord () {
+        ArrayList<ListReliefRecord> evacuationData = new ArrayList<ListReliefRecord>();
+        database = getReadableDatabase();
+
+        Cursor cursor = database.query(TABLE_RELIEF_RECORDS, null, null,
+                null, null, null, null);
+
+        while(cursor.getCount() > 0 && cursor.moveToNext()){
+            ListReliefRecord lrf = new ListReliefRecord(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(PK_RELIEF_RECORD_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_BENEFICIARY_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_BARANGAY)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_RELIEF_TYPE)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(RELIEF_RECORD_QUANTITY)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(RELIEF_RECORD_DISTRIBUTION_DATE)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(FK_RELIEF_RECORD_VOLUNTEER_ID))
+            );
+            evacuationData.add(lrf);
+        }
+        cursor.close();
+        return evacuationData;
+    }
     public Boolean checkUserLogin(String username, String password) {
 
         database = getReadableDatabase();
