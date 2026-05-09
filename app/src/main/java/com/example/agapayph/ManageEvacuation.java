@@ -35,6 +35,13 @@ public class ManageEvacuation extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        loadListView();
+    }
+
     public void loadListView() {
 
         lv = findViewById(R.id.lvEvacuation);

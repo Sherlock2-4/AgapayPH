@@ -22,6 +22,7 @@ public class AddEvaculation extends AppCompatActivity {
     EditText etName, etBarangay, etCapacity, etOccupancy, etFood, etWater, etMedicine;
     DatabaseHelper dh;
     String placeholder;
+    boolean result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,21 +70,32 @@ public class AddEvaculation extends AppCompatActivity {
         water = etWater.getText().toString().trim();
         medicine = etMedicine.getText().toString().trim();
 
-        boolean result = dh.addEvacuationCenter(name, capacity, occupancy, barangay, food, water, medicine);
+
+
+        if (DataHolder.isEditEvacSession) {
+            result = dh.updateEvacuationCenter(name, capacity, occupancy, barangay, food, water, medicine, DataHolder.evacName);
+        } else {
+            result = dh.addEvacuationCenter(name, capacity, occupancy, barangay, food, water, medicine);
+        }
+
 
         if (result) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Evacuation Center Added Successfully");
-            builder.setMessage("Do you want to return to dashboard?");
+            if (DataHolder.isEditEvacSession) {
+                builder.setMessage("Do you want to return to evacuation list?");
+            } else {
+                builder.setMessage("Do you want to return to dashboard?");
+            }
+
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
                     finish();
-                    Intent j = new Intent(getApplicationContext(), Admin.class);
-                    startActivity(j);
+
                 }
             });
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

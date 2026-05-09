@@ -458,8 +458,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result > 0;
     }
     public boolean updateEvacuationCenter(String newEvacuationCenterName, int maxResidency,
-                                          int currentOccupancy, String address, int foodPacks,
-                                          int water, int medicineKit, String oldEvacuationName){
+                                          int currentOccupancy, String address, String foodPacks,
+                                          String water, String medicineKit, String oldEvacuationName){
         database = getWritableDatabase();
         if(maxResidency > currentOccupancy){
             ContentValues cv = new ContentValues();
