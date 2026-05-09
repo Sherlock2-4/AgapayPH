@@ -478,6 +478,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         }
     }
+    public boolean deleteEvacuationCenter(String evacuationName){
+        database = getWritableDatabase();
+        long result = database.delete(TABLE_EVACUATION_CENTERS,
+                PK_EVACUATION_CENTER_NAME+"=?",new String[]{evacuationName});
+        return result > 0;
+    }
     public boolean updateInventoryItemQuantity(int quantity, int inventory_id){
         database = getWritableDatabase();
         ContentValues cv = new ContentValues();
