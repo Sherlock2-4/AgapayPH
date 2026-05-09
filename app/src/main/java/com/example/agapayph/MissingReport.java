@@ -60,7 +60,7 @@ public class MissingReport extends AppCompatActivity {
 
         Calendar c = Calendar.getInstance(Locale.getDefault());
 
-        boolean result = dh.addMissingPerson(name, age, description, location, c.getTime()+"", "Not Found");
+        boolean result = dh.addMissingPerson(name, age, description, location, c.getTime()+"", "Missing");
 
         if (result) {
 
