@@ -2,6 +2,7 @@ package com.example.agapayph;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -39,10 +40,10 @@ public class SignUp extends AppCompatActivity {
         CardView cvVolunteer = findViewById(R.id.cvVolunteer);
         CardView cvCitizen = findViewById(R.id.cvCitizen);
 
-        cvAdmin.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvResponder.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvVolunteer.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
-        cvCitizen.setCardBackgroundColor(getResources().getColor(R.color.cardBG));
+        cvAdmin.setCardBackgroundColor(Color.parseColor("#FFCC9C"));
+        cvResponder.setCardBackgroundColor(Color.parseColor("#FF7878"));
+        cvVolunteer.setCardBackgroundColor(Color.parseColor("#FFF297"));
+        cvCitizen.setCardBackgroundColor(Color.parseColor("#B9E6FF"));
 
         CardView selectedCard = (CardView)view;
         selectedCard.setCardBackgroundColor(getResources().getColor(R.color.green));
