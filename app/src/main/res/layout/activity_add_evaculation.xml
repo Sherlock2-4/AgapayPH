@@ -38,200 +38,199 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/white"
-        android:layout_height="match_parent">
+        android:defaultFocusHighlightEnabled="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/textView20"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Center Name" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:text="Center Name"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textSize="13dp"
                 android:layout_marginBottom="5dp"
-                android:padding="15dp"
-                android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
-                android:layout_height="wrap_content"
                 android:ems="10"
+                android:focusable="auto"
+                android:focusableInTouchMode="true"
+                android:fontFamily="sans-serif-light"
                 android:hint="e.g. Brgy. Mabolo Elementary School"
                 android:inputType="text"
-                />
+                android:keyboardNavigationCluster="false"
+                android:padding="15dp"
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/textView204"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Barangay" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Barangay"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etBarangay"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textSize="13dp"
                 android:layout_marginBottom="5dp"
-                android:padding="15dp"
-                android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
-                android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="sans-serif-light"
                 android:hint="Brgy Mabolo"
                 android:inputType="text"
-                />
+                android:padding="15dp"
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/textView205"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total capacity" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Total capacity"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etCapacity"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textSize="13dp"
                 android:layout_marginBottom="5dp"
-                android:padding="15dp"
-                android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
-                android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="sans-serif-light"
                 android:hint="500"
                 android:inputType="number"
-                />
+                android:padding="15dp"
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/textView206"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Current occupancy" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Current occupancy"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etOccupancy"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textSize="13dp"
                 android:layout_marginBottom="5dp"
-                android:padding="15dp"
-                android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
-                android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="sans-serif-light"
                 android:hint="0"
                 android:inputType="number"
-                />
+                android:padding="15dp"
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/textView207"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Food packs available" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Food packs available"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etFood"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textSize="13dp"
                 android:layout_marginBottom="5dp"
-                android:padding="15dp"
-                android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
-                android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="sans-serif-light"
                 android:hint="100"
                 android:inputType="number"
-                />
+                android:padding="15dp"
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/textView209"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Water (liters)" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Water (liters)"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etWater"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textSize="13dp"
                 android:layout_marginBottom="5dp"
-                android:padding="15dp"
-                android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
-                android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="sans-serif-light"
                 android:hint="200"
                 android:inputType="number"
-                />
+                android:padding="15dp"
+                android:textSize="13dp" />
+
             <TextView
                 android:id="@+id/textView208"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medicine kits" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Medicine kits"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etMedicine"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textSize="13dp"
                 android:layout_marginBottom="10dp"
-                android:padding="15dp"
-                android:fontFamily="sans-serif-light"
                 android:background="@drawable/input_border"
-                android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="sans-serif-light"
                 android:hint="50"
                 android:inputType="number"
-                />
+                android:padding="15dp"
+                android:textSize="13dp" />
 
             <Button
                 android:id="@+id/btnSubmit"
@@ -239,15 +238,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:textStyle="bold"
-                android:textSize="16dp"
-                android:fontFamily="sans-serif"
-                android:backgroundTint="#B62727"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_bg"
+                android:backgroundTint="#B62727"
+                android:fontFamily="sans-serif"
+                android:onClick="addCenter"
                 android:text="Add Center"
                 android:textColor="@color/white"
-                android:onClick="addCenter"/>
+                android:textSize="16dp"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
