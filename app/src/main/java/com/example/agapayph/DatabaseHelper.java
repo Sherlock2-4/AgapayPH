@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -642,10 +643,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor.getString(cursor.getColumnIndexOrThrow(PK_INCIDENTS_ID));
     }
 
-    public Cursor search(String tableName, String toSearch, String column){
+    public Cursor filteredSelection(String tableName, String toSearch, String column){
         database = getReadableDatabase();
         Cursor cursor = database.query(tableName, new String[]{column}, column + " = ?",
                 new String[]{toSearch}, null, null, null);
+        return cursor;
+    }
+
+    public Cursor selectAllRowFromTable(String tableName){
+        database = getReadableDatabase();
+        Cursor cursor = database.query(tableName, null, null,
+                null, null, null, null);
         return cursor;
     }
     public ArrayList<ListEvacuationCenter> listEvacuationCenter () {
