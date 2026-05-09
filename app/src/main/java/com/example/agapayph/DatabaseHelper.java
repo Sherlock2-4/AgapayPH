@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AgapayPH.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     /*
     * NAMING SCHEME:
@@ -165,7 +165,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 INCIDENTS_BARANGAY + " TEXT, " +
                 INCIDENTS_DATE_AND_TIME + " TEXT, " + //no built-in date datatype
                 INCIDENTS_SEVERITY_LEVEL + " TEXT, " +//low moderate high critical
-                INCIDENTS_PHOTO_PLACEHOLDER + " BLOB, " +
+                INCIDENTS_PHOTO_PLACEHOLDER + " TEXT, " +
                 INCIDENTS_PRIORITY_CATEGORY + " TEXT, " +
                 INCIDENTS_COORDINATE_LATITUDE + " REAL, " +//float data type
                 INCIDENTS_COORDINATE_LONGITUDE + " REAL, " +//float data type
@@ -264,16 +264,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ACTIVITY_LOGS);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NOTIFICATIONS);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_INVENTORY);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_MISSING_PERSONS);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ASSIGNMENTS);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_RELIEF_RECORDS);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_VOLUNTEERS);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_EVACUATION_CENTERS);
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ACTIVITY_LOGS);
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NOTIFICATIONS);
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_INVENTORY);
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_MISSING_PERSONS);
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ASSIGNMENTS);
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_RELIEF_RECORDS);
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_VOLUNTEERS);
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_EVACUATION_CENTERS);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_INCIDENTS);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_USERS);
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_USERS);
         onCreate(db);
     }
 
@@ -296,11 +296,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean addIncident(String title, String category, String description, int affectedCount,
                                String barangay, String date_and_time, String severity_level,
-                               ImageView photo, String priority, double coordinate1,
+                               String photo_path, String priority, double coordinate1,
                                double coordinate2){
-
-        BitmapDrawable drawable = (BitmapDrawable) photo.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
 
         database = getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -311,7 +308,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(INCIDENTS_BARANGAY, barangay);
         cv.put(INCIDENTS_DATE_AND_TIME, date_and_time);
         cv.put(INCIDENTS_SEVERITY_LEVEL, severity_level);
-        cv.put(INCIDENTS_PHOTO_PLACEHOLDER, getBitmapByte(bitmap));
+        cv.put(INCIDENTS_PHOTO_PLACEHOLDER, photo_path);
         cv.put(INCIDENTS_PRIORITY_CATEGORY, priority);
         cv.put(INCIDENTS_COORDINATE_LATITUDE, coordinate1);
         cv.put(INCIDENTS_COORDINATE_LONGITUDE, coordinate2);
@@ -869,18 +866,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         }
         return false;
-    }
-
-
-    public byte[] getBitmapByte(Bitmap bitmap){//convert image
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        return outputStream.toByteArray();
-    }
-
-    public Bitmap getImage(byte[] imageByte) {
-        //imageView.setImageByBitmap(getImage(cursor.getBlob(cursor.getColumnIndexOrThrow(INCIDENTS_PHOTO))))
-        Bitmap bitmap = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
-        return bitmap;
     }
 }
