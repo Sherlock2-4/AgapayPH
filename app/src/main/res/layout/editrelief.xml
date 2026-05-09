@@ -10,30 +10,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvEvacNamef"
-                android:layout_width="370dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="serif"
-                android:text="Beneficiary name"
-                android:textColor="@color/black"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/imageView6f"
-                android:background="#F8F2C5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/edit" />
-
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvEvacNamef"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:text="Beneficiary name"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvFoodddd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Brangay"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tvEvacAddressd"
@@ -43,6 +35,7 @@
             android:layout_height="wrap_content"
             android:text="Relief type" />
 
+
         <TextView
             android:id="@+id/tvOccupancydf"
             android:layout_width="wrap_content"
@@ -51,39 +44,24 @@
             android:text="Quantity"
             android:textColor="@color/black" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="2dp"
+
+        <TextView
+            android:id="@+id/tvFoodd"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:text="Volunteer assigned"
+            android:textColor="@color/black" />
 
 
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="2dp"
+        <TextView
+            android:id="@+id/tvFooddd"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:text="Date &amp; time"
+            android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/tvFoodd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_weight="1"
-                android:text="Volunteer assigned" />
-
-
-            <ImageView
-                android:id="@+id/imageView65d"
-                android:background="#EDDEDE"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/delete" />
-        </LinearLayout>
 
         <View
             android:id="@+id/view2"
