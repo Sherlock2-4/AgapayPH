@@ -7,17 +7,17 @@ public class ListReliefRecord {
     public String relief_type;
     public int quantity;
     public String distribution_date;
-    public int volunteer_id;
+    public String volunteer_name;
 
     public ListReliefRecord(int relief_id, String beneficiary_name, String barangay,
                             String relief_type, int quantity, String distribution_date,
-                            int volunteer_id){
+                            String volunteer_name){
         this.relief_id = relief_id;
         this.beneficiary_name = beneficiary_name;
         this.barangay = barangay;
         this.relief_type = relief_type;
         this.quantity = quantity;
         this.distribution_date = distribution_date;
-        this.volunteer_id = volunteer_id;
+        this.volunteer_name = volunteer_name;
     }
 }
