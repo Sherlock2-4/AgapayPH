@@ -73,9 +73,34 @@
                 android:backgroundTint="#B62727"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_bg"
-                android:text="+ Add evaculation center"
+                android:text="+ Add evacuation center"
                 android:textColor="@color/white"
                 android:onClick="toAddEvacuation"/>
+
+            <Button
+                android:id="@+id/button23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif"
+                android:backgroundTint="#F06436"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_bg"
+                android:text="Manage Evacuation"
+                android:textColor="@color/white"
+                />
+
+            <View
+                android:id="@+id/view"
+                android:layout_margin="5dp"
+                android:background="@color/black"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp" />
 
             <Button
                 android:id="@+id/button22"
@@ -92,6 +117,22 @@
                 android:text="+ Log relief distribution"
                 android:textColor="@color/white"
                 android:onClick="logRelief"/>
+
+            <Button
+                android:id="@+id/button24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif"
+                android:backgroundTint="#F06436"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_bg"
+                android:text="Manage Relief"
+                android:textColor="@color/white"
+               />
         </LinearLayout>
 
     </ScrollView>
