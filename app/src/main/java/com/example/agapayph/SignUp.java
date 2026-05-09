@@ -102,6 +102,7 @@ public class SignUp extends AppCompatActivity {
                 } else if (DataHolder.role.equals("Volunteer")) {
 
                     dh.addVolunteers(username);
+                    DataHolder.volunteerId = Integer.parseInt(dh.getVolunteerId(username));
 
                     finish();
                     Intent i = new Intent(this, Volunteer.class);

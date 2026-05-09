@@ -1,6 +1,8 @@
 package com.example.agapayph;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,10 +110,41 @@ public class EvacuationManagementAdapter extends BaseAdapter {
         vh.ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "delete " + i, Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Delete Evacutaion Center?");
+                builder.setMessage("This action cannot be undone");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int j) {
+                        DatabaseHelper dh = new DatabaseHelper(view.getContext());
+
+                        boolean result = dh.deleteEvacuationCenter(item.evaucation_name);
+                        if (result) {
+                            data.remove(i);
+                            notifyDataSetChanged();
+
+
+                        }
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         });
 
         return view;
     }
+
 }

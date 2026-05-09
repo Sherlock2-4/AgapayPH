@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -14,9 +16,22 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Volunteer extends AppCompatActivity {
 
     TextView tvName;
+    ListView lvMain;
+    List<ListMissingPerson> dataMissing;
+    List<ListReliefRecord> dataRelief;
+    List<ListReliefRecord> dataReliefFiltered;
+    ReliefVolunteerAdapter adapterRelief;
+    MissingPersonAdapter adapterMissing;
+    DatabaseHelper dh;
+    TabLayout tabVolunteer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +46,41 @@ public class Volunteer extends AppCompatActivity {
 
         tvName = findViewById(R.id.tvName);
         tvName.setText(DataHolder.username);
+
+        dh = new DatabaseHelper(this);
+        lvMain = findViewById(R.id.lvMain);
+
+        tabTask(new View(this));
+
+        tabVolunteer = findViewById(R.id.tabVolunteer);
+        tabVolunteer.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int postion = tab.getPosition();
+                switch (postion) {
+                    case 0:
+                        tabTask(new View(tab.view.getContext()));
+                        break;
+                    case 1:
+                        tabRelief(new View(tab.view.getContext()));
+                        break;
+                    case 2:
+                        tabMissing(new View(tab.view.getContext()));
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
@@ -63,6 +113,36 @@ public class Volunteer extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
+    }
+
+    public void tabTask(View view) {
+
+
+
+    }
+
+    public void tabRelief(View view) {
+
+        dataRelief = dh.listReliefRecord();
+        dataReliefFiltered = new ArrayList<>();
+
+        for (ListReliefRecord l: dataRelief) {
+
+            if (l.volunteer_id == DataHolder.volunteerId) {
+                dataReliefFiltered.add(l);
+            }
+
+        }
+
+        adapterRelief = new ReliefVolunteerAdapter(this, dataReliefFiltered);
+        lvMain.setAdapter(adapterRelief);
+
+    }
+
+    public void tabMissing(View view) {
+
+        //dataMissing = dh.mi
 
     }
 }

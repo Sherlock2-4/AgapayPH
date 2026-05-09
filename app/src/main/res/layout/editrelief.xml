@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvEvacNamef"
+            android:id="@+id/tvBeneficiary"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
@@ -20,7 +20,7 @@
             android:textSize="17dp"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/tvFoodddd"
+            android:id="@+id/tvBarangay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -28,7 +28,7 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/tvEvacAddressd"
+            android:id="@+id/tvRelief"
             android:layout_marginTop="2dp"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
 
 
         <TextView
-            android:id="@+id/tvOccupancydf"
+            android:id="@+id/tvQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -46,7 +46,7 @@
 
 
         <TextView
-            android:id="@+id/tvFoodd"
+            android:id="@+id/tvVolunteer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -55,13 +55,12 @@
 
 
         <TextView
-            android:id="@+id/tvFooddd"
+            android:id="@+id/tvDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Date &amp; time"
             android:textColor="@color/black" />
-
 
         <View
             android:id="@+id/view2"
