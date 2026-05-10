@@ -1,10 +1,14 @@
 package com.example.agapayph;
 
+import android.app.ComponentCaller;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -20,6 +26,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Locale;
 
 
@@ -35,7 +44,9 @@ public class ReportIncident extends AppCompatActivity {
     String placeHolder;
     String description;
     String priority;
+    String imagePath;
     int priorityScore;
+    ImageView ivImage;
 
     DatabaseHelper dh;
 
@@ -61,8 +72,22 @@ public class ReportIncident extends AppCompatActivity {
         priorityScore = 0;
 
         dh = new DatabaseHelper(this);
+
+
+
+//        ivImage = findViewById(R.id.ivImage);
+//        getImageFromPath("/data/user/0/com.example.agapayph/app_imgDir/IMG_1778339320921.jpg", ivImage);
     }
 
+
+//    public void getImageFromPath(String path, ImageView image){
+//        File file = new File(path);
+//        if(file.exists()){
+//            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+//
+//            image.setImageBitmap(bitmap);
+//        }
+//    }
 
     public void submitClicked(View view) {
 
@@ -80,7 +105,7 @@ public class ReportIncident extends AppCompatActivity {
         Calendar c = Calendar.getInstance(Locale.getDefault());
 
 
-        Boolean result = dh.addIncident(title, category, description, individual, barangay, c.getTime()+"", severity, priority, 0, 0);
+        Boolean result = dh.addIncident(title, category, description, individual, barangay, c.getTime()+"", severity, imagePath, priority, 0, 0);
 
         if (result) {
 
@@ -109,6 +134,60 @@ public class ReportIncident extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
 
+        }
+
+    }
+
+    public void uploadImage(View view) {
+
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(i.ACTION_GET_CONTENT);
+        startActivityForResult(i, 1);
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data, @NonNull ComponentCaller caller) {
+        super.onActivityResult(requestCode, resultCode, data, caller);
+
+        if (resultCode == RESULT_OK && data != null) {
+            Uri uri = data.getData();
+            ivImage.setImageURI(uri);
+
+            imagePath = saveImageGetPath(uri);
+
+//            SharedPreferences sp = getSharedPreferences("MyPref", MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sp.edit();
+//            editor.put
+
+        }
+
+
+    }
+
+    public String saveImageGetPath(Uri uri) {
+
+        String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
+
+        File directory = getDir("imgDir", MODE_PRIVATE);
+        File imagePath = new File(directory, fileName);
+
+        try(InputStream i = getContentResolver().openInputStream(uri);
+            FileOutputStream fos = new FileOutputStream(imagePath)) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while((bytesRead = i.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+            }
+
+            return imagePath.getAbsolutePath();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
 
     }

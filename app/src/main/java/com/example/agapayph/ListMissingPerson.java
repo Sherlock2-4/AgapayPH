@@ -20,4 +20,8 @@ public class ListMissingPerson {
         this.date_missing = date_missing;
         this.status = status;
     }
+
+    public int getAge() {
+        return age;
+    }
 }

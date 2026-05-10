@@ -264,16 +264,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ACTIVITY_LOGS);
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NOTIFICATIONS);
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_INVENTORY);
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_MISSING_PERSONS);
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ASSIGNMENTS);
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_RELIEF_RECORDS);
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_VOLUNTEERS);
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_EVACUATION_CENTERS);
+//        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ACTIVITY_LOGS);
+//        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NOTIFICATIONS);
+//        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_INVENTORY);
+//        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_MISSING_PERSONS);
+//        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ASSIGNMENTS);
+//        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_RELIEF_RECORDS);
+//        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_VOLUNTEERS);
+//        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_EVACUATION_CENTERS);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_INCIDENTS);
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_USERS);
+//        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_USERS);
         onCreate(db);
     }
 

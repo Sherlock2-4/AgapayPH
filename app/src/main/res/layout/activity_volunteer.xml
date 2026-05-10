@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="330dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
@@ -37,6 +37,13 @@
             android:text="Volunteer"
             android:textColor="@color/white"
             android:textStyle="bold" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FilterAge"
+            android:onClick="filterMissing"
+            />
 
         <ImageView
             android:id="@+id/imageView4"

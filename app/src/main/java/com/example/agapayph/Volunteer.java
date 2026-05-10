@@ -19,6 +19,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Volunteer extends AppCompatActivity {
@@ -145,6 +147,20 @@ public class Volunteer extends AppCompatActivity {
         dataMissing = dh.listMissingPerson();
         adapterMissing = new MissingPersonAdapter(this, dataMissing);
         lvMain.setAdapter(adapterMissing);
+
+    }
+
+    public void filterMissing(View view) {
+
+        Comparator<ListMissingPerson> c = new Comparator<ListMissingPerson>() {
+            @Override
+            public int compare(ListMissingPerson t2, ListMissingPerson t1) {
+                return Integer.compare(t2.age, t1.age);
+            }
+        };
+
+        Collections.sort(dataMissing, c);
+        adapterMissing.notifyDataSetChanged();
 
     }
 }

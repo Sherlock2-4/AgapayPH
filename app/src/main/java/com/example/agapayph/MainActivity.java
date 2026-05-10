@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (DataHolder.role.equals("Volunteer")) {
 
-                DataHolder.volunteerId = Integer.parseInt(dh.getVolunteerId(sp.getString("username", "")));
+                DataHolder.volunteerId = Integer.parseInt(dh.getVolunteerId(inputUsername));
                 finish();
                 Intent i = new Intent(this, Volunteer.class);
                 startActivity(i);

@@ -38,8 +38,6 @@ public class Citizen extends AppCompatActivity {
         tvName = findViewById(R.id.textView17);
         tvName.setText("Citizen: " + DataHolder.username);
 
-        performTaskWithLoading();
-
     }
 
     public void incidentClicked(View view) {
@@ -108,23 +106,5 @@ public class Citizen extends AppCompatActivity {
 
     }
 
-    public void performTaskWithLoading() {  //NOT WORKING
-        View loader = findViewById(R.id.loadingOverlay);
 
-        // 1. Start Loading
-        loader.bringToFront();
-        loader.setVisibility(View.VISIBLE);
-
-        // 2. Delay for 2 seconds
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // 3. Stop Loading
-                loader.setVisibility(View.GONE);
-
-                // 4. Do your actual work (e.g., refresh list, save to DB)
-                Toast.makeText(getApplicationContext(), "Data Updated!", Toast.LENGTH_SHORT).show();
-            }
-        }, 10000);
-    }
 }
